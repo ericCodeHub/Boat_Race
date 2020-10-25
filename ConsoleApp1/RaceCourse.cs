@@ -9,6 +9,7 @@ namespace BoatRace
     {
         /*
          * RaceCourse currently is a parent class for the different race courses
+         * **no longer a parent class--10.15.20
          * but it's becoming clear that the different courses don't need a class.
          * It's possible that their elements could be contained in a dictionary.
          * They need a number of legs and whether each leg is a curve or a straight.
@@ -36,8 +37,8 @@ namespace BoatRace
         public int WindDirection { get; set; }
 
         /******doubles*********/
-        public double StraightDistanceOfLeg = 100;
-        public double CurvedDistanceOfLeg = 25;
+        public double StraightDistanceOfLeg = 1000;
+        public double CurvedDistanceOfLeg = 250;
         private double ChopEffect //why can't this be in parent class RaceCourse?
         {
             get

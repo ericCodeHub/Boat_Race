@@ -312,16 +312,26 @@ namespace BoatRace
                     }
                     x++;//counter for foreach loop
                 }//end of leg
-                Console.WriteLine("Positions after Leg " + i + ": 1) ");
+                List<string> boatPositions = new List<string>();
+                
+                boatPositions.AddRange(CalculateBoatPositionsAfterEachLeg(cumulativeLegTimesOfEachBoat,boatsForRace,boatsForRace.Count));
+                Console.WriteLine("\nPositions after Leg " + i + ": 1) " + boatPositions[0] + ", 2) " + boatPositions[1] + ", 3) " +
+                    boatPositions[2] + ", 4) " + boatPositions[3]);
             }//end of loop through all legs
 
 
         }
-        private List<string> CalculateBoatPositionsAfterEachLeg(double legTimes)
+        private static List<string> CalculateBoatPositionsAfterEachLeg(List<double> legTimes, List<Boat> boats, int numOfBoats)
         {
             List<string> list = new List<string>();
-            foreach (Boat in boatsForRace)
-
+            string[] array = new string[numOfBoats];
+            legTimes.Sort();
+            foreach (Boat boat in boats)
+            {
+                int boatTimeInList = legTimes.IndexOf(boat.BoatTimeForDistance);
+                array[boatTimeInList] = boat.Name;
+            }
+            return array.ToList();
         }
     }
      
