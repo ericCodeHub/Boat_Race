@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BoatRace": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\ericm\\OneDrive\\VisualStudioProjects\\BoatTypesExample"
+    }
+  }
+}
