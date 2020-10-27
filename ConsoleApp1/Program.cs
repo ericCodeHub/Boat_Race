@@ -294,11 +294,11 @@ namespace BoatRace
                     }
                     //leg results
 
-                    double thisLegTime = Math.Round(boatRaceCourse.StraightDistanceOfLeg / currentBoatSpeed, 2);
+                    double thisLegTime = Math.Round((boatRaceCourse.StraightDistanceOfLeg / currentBoatSpeed)/10, 2);
                     boat.BoatTimeForDistance += thisLegTime;
                     Console.WriteLine(boat.Name + "\t" + boat.EngineHorsepower +
                         "\t" + boat.Captain + "\t" + Math.Round(currentBoatSpeed, 2) +
-                        "\t" + thisLegTime + "\t" + Math.Round(boat.BoatTimeForDistance, 2) +
+                        "\t" + thisLegTime + "\t" + Math.Round(boat.BoatTimeForDistance/100, 2) +
                         "\t" + Math.Round(boat.BoatTimeForDistance, 2));
 
                     cumulativeLegTimesOfEachBoat.Add(boat.BoatTimeForDistance);

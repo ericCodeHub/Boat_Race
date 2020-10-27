@@ -50,3 +50,16 @@ C:\Users\ericm\OneDrive\Documents\GitHub\Boat_Race\ConsoleApp1\obj\Debug\netcore
 C:\Users\ericm\OneDrive\Documents\GitHub\Boat_Race\ConsoleApp1\obj\Debug\netcoreapp3.1\BoatRace.dll
 C:\Users\ericm\OneDrive\Documents\GitHub\Boat_Race\ConsoleApp1\obj\Debug\netcoreapp3.1\BoatRace.pdb
 C:\Users\ericm\OneDrive\Documents\GitHub\Boat_Race\ConsoleApp1\obj\Debug\netcoreapp3.1\BoatRace.genruntimeconfig.cache
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\bin\Debug\netcoreapp3.1\BoatRace.exe
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\bin\Debug\netcoreapp3.1\BoatRace.deps.json
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\bin\Debug\netcoreapp3.1\BoatRace.runtimeconfig.json
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\bin\Debug\netcoreapp3.1\BoatRace.runtimeconfig.dev.json
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\bin\Debug\netcoreapp3.1\BoatRace.dll
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\bin\Debug\netcoreapp3.1\BoatRace.pdb
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\obj\Debug\netcoreapp3.1\BoatRace.csprojAssemblyReference.cache
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\obj\Debug\netcoreapp3.1\BoatRace.AssemblyInfoInputs.cache
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\obj\Debug\netcoreapp3.1\BoatRace.AssemblyInfo.cs
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\obj\Debug\netcoreapp3.1\BoatRace.csproj.CoreCompileInputs.cache
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\obj\Debug\netcoreapp3.1\BoatRace.dll
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\obj\Debug\netcoreapp3.1\BoatRace.pdb
+C:\Users\Student\workspace\Boat_Race\ConsoleApp1\obj\Debug\netcoreapp3.1\BoatRace.genruntimeconfig.cache
