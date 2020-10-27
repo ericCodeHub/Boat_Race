@@ -37,9 +37,15 @@ namespace BoatRace
         public int WindDirection { get; set; }
 
         /******doubles*********/
-        public double StraightDistanceOfLeg = 1000;
-        public double CurvedDistanceOfLeg = 250;
-        private double ChopEffect //why can't this be in parent class RaceCourse?
+        public double StraightDistanceOfLeg = 10000;
+        public double CurvedDistanceOfLeg = 2500;
+        /*
+         * turns will incur speed penalties
+         * more experienced captains will make a better turn
+         * higher boat speeds going into the turn will impact quality of the turn
+         * see curveLegSpeedEffect for more details
+         */
+        private double ChopEffect //why can't this be in parent class RaceCourse?**now it is.
         {
             get
             {
@@ -161,8 +167,15 @@ namespace BoatRace
 
         public double CurvedLegSpeedEffect()
         {
-            //A curved leg can take longer to navigate base on how wide a turn is made
-            //Boat speed is affected by hp, captain, and speed heading into the turn
+            /*
+             * A curved leg can take longer to navigate base on how wide a turn is made
+             * Boat speed is affected by hp, captain, and speed heading into the turn
+             * currently going with max impact of 40% based on captain rating and speed going into turn
+             * BoatTimeForDistance would not have been recalculated yet, so that can be used for speed into turn
+             * all boat's speeds should be altered somewhat, say 10%; possible formula:
+             * captains < 5, 20% to 40%; >5 10% to 20%
+             * speed
+            */
             return 0;
 
         }

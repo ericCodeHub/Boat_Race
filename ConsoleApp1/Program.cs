@@ -241,7 +241,7 @@ namespace BoatRace
 
             for (int i = 0; i < courseLegTypes.Count; i++)
             {
-                Console.WriteLine("\nLeg " + (i + 1));
+                Console.WriteLine("\nLeg " + (i + 1) + ":  " + (courseLegTypes[i] == 0 ? "straight" : "curve")); ;
                 
                 cumulativeLegTimesOfEachBoat.Clear();//needs to be cleared for each leg
 
@@ -274,6 +274,7 @@ namespace BoatRace
                     boatDirection = x == 0 ? boatRaceCourse.StartDirection : boatRaceCourse.NewLegDirection(boatDirection);
                     double currentBoatSpeed = Math.Round(boat.AverageSpeedInKnots * (boat.IncreaseBoatSpeed(boat.EngineHorsepower) +
                         boat.CaptainBonus + boatRaceCourse.CourseLeg(courseLegTypes[i], boatDirection, i + 1)), 2);
+                    
                     currentBoatSpeed += boat.SpeedAdjustment(currentBoatSpeed, boat.EngineHorsepower);
                     //time formula for distance traveled in a straight is 100 / currentBoatSpeed
                     //time formula for distance traveled in a curve is 25 / (currentBoatSpeed with adjustment for turn)
@@ -293,11 +294,11 @@ namespace BoatRace
                     }
                     //leg results
 
-                    double thisLegSpeed = Math.Round(boatRaceCourse.StraightDistanceOfLeg / currentBoatSpeed, 2);
-                    boat.BoatTimeForDistance += thisLegSpeed;
+                    double thisLegTime = Math.Round(boatRaceCourse.StraightDistanceOfLeg / currentBoatSpeed, 2);
+                    boat.BoatTimeForDistance += thisLegTime;
                     Console.WriteLine(boat.Name + "\t" + boat.EngineHorsepower +
                         "\t" + boat.Captain + "\t" + Math.Round(currentBoatSpeed, 2) +
-                        "\t" + thisLegSpeed + "\t" + Math.Round(boat.BoatTimeForDistance, 2) +
+                        "\t" + thisLegTime + "\t" + Math.Round(boat.BoatTimeForDistance, 2) +
                         "\t" + Math.Round(boat.BoatTimeForDistance, 2));
 
                     cumulativeLegTimesOfEachBoat.Add(boat.BoatTimeForDistance);
@@ -315,7 +316,7 @@ namespace BoatRace
                 List<string> boatPositions = new List<string>();
                 
                 boatPositions.AddRange(CalculateBoatPositionsAfterEachLeg(cumulativeLegTimesOfEachBoat,boatsForRace,boatsForRace.Count));
-                Console.WriteLine("\nPositions after Leg " + i + ": 1) " + boatPositions[0] + ", 2) " + boatPositions[1] + ", 3) " +
+                Console.WriteLine("\nPositions after Leg " + (i+1) + ": 1) " + boatPositions[0] + ", 2) " + boatPositions[1] + ", 3) " +
                     boatPositions[2] + ", 4) " + boatPositions[3]);
             }//end of loop through all legs
 
