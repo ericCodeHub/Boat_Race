@@ -90,6 +90,11 @@ namespace BoatRaceExample.Tests
             SailBoat sb = new SailBoat(1, "sloop", "diesel", 30, true);
             Assert.IsTrue(sb.Horsepower(sb.GetType().Name) <= 30);
         }
+        [TestMethod]
+        public void BoatSelectionMenuTest()
+        {
+            Console.WriteLine("");
+        }
 
     }
 }

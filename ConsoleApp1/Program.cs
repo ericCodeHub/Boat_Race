@@ -7,24 +7,24 @@ namespace BoatRace
 {
     class Program
     {
-
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Welcome to Boat Racing");
-            //these are the kinds of boats that can be raced
-            List<string> boatChoices = new List<string>()
+        //these are the kinds of boats that can be raced
+        static List<string> boatChoices = new List<string>()
             {
                 "Sailboat", "Trawler", "PontoonBoat", "SpeedBoat"
             };
 
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome to Boat Racing");  
 
             string boatChoice = "";
             int boatChoiceSelection;
             //user selects a boat
             do
             {
-                Console.WriteLine("Choose boats to race:" +
-                   "\n\t1) Sailboats\n\t2) Trawlers\n\t3) Pontoon Boats\n\t4) SpeedBoats");
+                Console.WriteLine("\nChoose boats to race:" + ListBoatChoices());
+
+                    //"\n\t1) Sailboats\n\t2) Trawlers\n\t3) Pontoon Boats\n\t4) SpeedBoats");
                 boatChoiceSelection = Convert.ToInt32(Console.ReadLine());
 
             }
@@ -34,8 +34,7 @@ namespace BoatRace
 
             //Create a list to hold boats and their properties
             List<Boat> boatsForRace = new List<Boat>();
-            List<string> theRaceBoats = new List<string>();//don't think I need this
-            theRaceBoats.Add("");
+            
             //Build the Boat
 
             for (int i = 0; i < 4; i++)
@@ -55,7 +54,7 @@ namespace BoatRace
 
                     //next two lines are probably not necessary
                     boat.RacingBoats.Add(boat);//do I need this?                    
-                    theRaceBoats.Add(boat.ToString());//what am I using this for?
+                    
 
                 } else if (boatChoice == "Trawler")
                 {
@@ -322,6 +321,19 @@ namespace BoatRace
 
 
         }
+
+        private static string ListBoatChoices()
+        {
+            int i = 0;
+            string theBoatChoiceString = "";
+            foreach (string boat in boatChoices)
+            {
+                theBoatChoiceString += "\n\t" + (i+1) + ") " + boat;
+                i++;
+            }
+            return theBoatChoiceString;
+        }
+
         private static List<string> CalculateBoatPositionsAfterEachLeg(List<double> legTimes, List<Boat> boats, int numOfBoats)
         {
             List<string> list = new List<string>();
