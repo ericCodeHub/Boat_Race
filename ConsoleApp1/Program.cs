@@ -12,31 +12,36 @@ namespace BoatRace
             {
                 "Sailboat", "Trawler", "PontoonBoat", "SpeedBoat"
             };
+        static Menu_CLI makeSelection = new Menu_CLI();
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Boat Racing");  
+            Console.WriteLine("Welcome to Boat Racing");
 
             //string boatChoice = "";//what's this for?  see line 31
-            int boatChoiceSelection;
+            //int boatChoiceSelection;
             //user selects a boat
-            do
+            Console.WriteLine("\nChoose boats to race:");// + ListBoatChoices())
+            /*do
             {
                 Console.WriteLine("\nChoose boats to race:" + ListBoatChoices());                    
                 boatChoiceSelection = Convert.ToInt32(Console.ReadLine());
                 //can this be done in Menu_CLI??
             }
-            while (boatChoiceSelection > 4);
-
-            string boatChoice = boatChoices[boatChoiceSelection - 1];//determines boat selected--seems like this is where the Menu_CLI would be called
+            while (boatChoiceSelection > boatChoices.Count);
+            */
+            string boatChoice = boatChoices[makeSelection.SelectionMenu(boatChoices) - 1];//determines boat selected--seems like this is where the Menu_CLI would be called
                                                                     //and returned the boatchoiceSelection
+                                                                    //send boatChoices as parameter to the menu method
+                                                                    //returns the integer selected from prompt
+                                                                    //integer - 1 = boatChoice
 
             //Create a list to hold boats and their properties
             List<Boat> boatsForRace = new List<Boat>();
             
             //Build the Boat
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < boatChoices.Count; i++)
             {
                 if (boatChoice == "Sailboat")
                 {
@@ -321,7 +326,7 @@ namespace BoatRace
 
         }
 
-        private static string ListBoatChoices()
+        private static string ListBoatChoices()//this needs to go into Menu_CLI I think
         {
             int i = 0;
             string theBoatChoiceString = "";
