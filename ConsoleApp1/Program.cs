@@ -17,20 +17,19 @@ namespace BoatRace
         {
             Console.WriteLine("Welcome to Boat Racing");  
 
-            string boatChoice = "";
+            //string boatChoice = "";//what's this for?  see line 31
             int boatChoiceSelection;
             //user selects a boat
             do
             {
-                Console.WriteLine("\nChoose boats to race:" + ListBoatChoices());
-
-                    //"\n\t1) Sailboats\n\t2) Trawlers\n\t3) Pontoon Boats\n\t4) SpeedBoats");
+                Console.WriteLine("\nChoose boats to race:" + ListBoatChoices());                    
                 boatChoiceSelection = Convert.ToInt32(Console.ReadLine());
-
+                //can this be done in Menu_CLI??
             }
             while (boatChoiceSelection > 4);
 
-            boatChoice = boatChoices[boatChoiceSelection - 1];//determines boat selected
+            string boatChoice = boatChoices[boatChoiceSelection - 1];//determines boat selected--seems like this is where the Menu_CLI would be called
+                                                                    //and returned the boatchoiceSelection
 
             //Create a list to hold boats and their properties
             List<Boat> boatsForRace = new List<Boat>();
