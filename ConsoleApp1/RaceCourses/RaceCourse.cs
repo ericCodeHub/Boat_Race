@@ -147,7 +147,7 @@ namespace BoatRace
             int startDirection = num.Next(4) + 1;
 
             //now set properties to variables created above
-            //that way they stat constant through the race
+            //that way they stay constant through the race
             WaterCurrent = waterCurrent;
             WaterChop = waterChop;
             Wind = wind;

@@ -17,30 +17,20 @@ namespace BoatRace
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Boat Racing");
-
-            //string boatChoice = "";//what's this for?  see line 31
-            //int boatChoiceSelection;
+            
             //user selects a boat
             Console.WriteLine("\nChoose boats to race:");// + ListBoatChoices())
-            /*do
-            {
-                Console.WriteLine("\nChoose boats to race:" + ListBoatChoices());                    
-                boatChoiceSelection = Convert.ToInt32(Console.ReadLine());
-                //can this be done in Menu_CLI??
-            }
-            while (boatChoiceSelection > boatChoices.Count);
-            */
-            string boatChoice = boatChoices[makeSelection.SelectionMenu(boatChoices) - 1];//determines boat selected--seems like this is where the Menu_CLI would be called
-                                                                    //and returned the boatchoiceSelection
-                                                                    //send boatChoices as parameter to the menu method
-                                                                    //returns the integer selected from prompt
-                                                                    //integer - 1 = boatChoice
+           
+            string boatChoice = boatChoices[makeSelection.SelectionMenu(boatChoices) - 1];
+            //determines boat selected by calling menu_cli
+            //sends boatchoices to the menu and returns the index for the boat selected
+            //string is completed here to set which type of boat is being raced
+            //actual boats are created below                                                                    
 
             //Create a list to hold boats and their properties
             List<Boat> boatsForRace = new List<Boat>();
             
             //Build the Boat
-
             for (int i = 0; i < boatChoices.Count; i++)
             {
                 if (boatChoice == "Sailboat")
@@ -56,7 +46,7 @@ namespace BoatRace
                     */
 
 
-                    //next two lines are probably not necessary
+                    //next line is probably not necessary
                     boat.RacingBoats.Add(boat);//do I need this?                    
                     
 
@@ -66,7 +56,7 @@ namespace BoatRace
                     Trawler boat = new Trawler(1, "diesel", 38, false);
                     boatsForRace.Add(boat);//this the Boat Type list
 
-                    boat.racingBoats.Add(boat);//do I need this
+                    boat.racingBoats.Add(boat);//do I need this?
 
                 } else if (boatChoice == "PontoonBoat")
                 {
@@ -160,16 +150,7 @@ namespace BoatRace
                 //boatspeed line
             }
 
-            //Console.WriteLine((boatsForRace[0].GetType().gett);
-            //PontoonBoat x = boatsForRace[0] as PontoonBoat;
-
-
-
-
-
-
-            //Console.WriteLine("speed:  " + (boatsForRace[0] as Convert.ChangeType(boatsForRace[0],).AverageSpeedInKnots);
-
+            
             //set boat speed (base movement rate)
             Dictionary<string, double> boatMovementRates = new Dictionary<string, double>();
             foreach (Boat boat in boatsForRace)
@@ -185,6 +166,7 @@ namespace BoatRace
                 "They are ranked from 1 to 10, 10 being the most experienced");
 
             //show the boat hp, captain, and avg speed
+            //experiment with variations in average speed for race
             Console.WriteLine("\nName\t\tHP\tCapt.\tAvg Speed\n");//header
             foreach (Boat boat in boatsForRace)
             {
@@ -192,48 +174,34 @@ namespace BoatRace
                     "\t" + boat.Captain + "\t" + boat.AverageSpeedInKnots + "\n");
             }
 
+            //******************select race course***************************//
             //choose a course--refactor to call a method in RaceCourse that uses dictionary to display choices
-            RaceCourse firstCourse = new RaceCourse();//I think this race course object can be used through the whole race cyle.
-
-            //this list can be removed I think
-            /*List<string> courseChoices = new List<string>()//holds course types
-            {
-                "Oval", "Straight Away", "Triangle"
-            };*/
+            RaceCourse rc = new RaceCourse();//I think this race course object can be used through the whole race cyle.                      
 
             Console.WriteLine("Choose a race course");
 
-            for (int i = 0; i < firstCourse.RaceCourseChoices().Count; i++)
-            {
-                Console.WriteLine(i + 1 + ". " + firstCourse.RaceCourseChoices()[i]);
-            }
-
-            int raceCourseSelection;//this variable will receive answer
-
-            do
-            {
-                raceCourseSelection = Convert.ToInt32(Console.ReadLine());//collects user selection    
-            }
-            while (raceCourseSelection > firstCourse.RaceCourseChoices().Count());
-
-            string courseSelected = firstCourse.RaceCourseChoices()[raceCourseSelection - 1];
-
-
+            //currently courseSelected is only needed to determine the number of legs and the design of each leg(curve or straight)
+            string courseSelected = rc.RaceCourseChoices()[makeSelection.SelectionMenu(rc.RaceCourseChoices()) - 1];
+            
+            //display the course selected
             Console.WriteLine("course selected: " + courseSelected);
 
-            //create race course
-            RaceCourse boatRaceCourse = new RaceCourse(courseSelected);
+            //create race course--changed rc to boatRaceCourse here to read code easier
+            RaceCourse boatRaceCourse = rc;//new RaceCourse(courseSelected);//why create a new object; try using rc through whole race cycle
+            boatRaceCourse.RaceCourseConditions();
 
+            //****************display current conditions on the water*******************
             Console.WriteLine("\nCurrent Conditions on the water");
             Console.WriteLine("Current: " + boatRaceCourse.WaterCurrent + "\nChop: " + boatRaceCourse.WaterChop
                 + "\nWind: " + boatRaceCourse.Wind + "\nWind Direction: " + boatRaceCourse.WindDirection +
                 "\nWater Current Direction: " + boatRaceCourse.WaterCurrentDirection + "\nStarting Direction: " + boatRaceCourse.StartDirection);
+
+
+
             //Race Course = leg 1 + leg 2 + leg 3, etc.; number of legs depends on course selected.
-            //Console.WriteLine(boatRaceCourse.FirstLeg());
 
+            //*******print out results for first leg*********************************//
 
-
-            //*******print out results for first leg*********************************
             int boatDirection = 0;
             int x = 0;//how else do I keep conditions for leg from printing only once?
             List<int> courseLegTypes = new List<int>();

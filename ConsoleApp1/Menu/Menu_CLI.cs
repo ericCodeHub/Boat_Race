@@ -16,30 +16,26 @@ namespace BoatRace
             int selection;
             do
             {
-                int i = 0;
-                string itemChoiceString = "";
-                foreach (string item in itemsToChooseFrom)
-                {
-                    itemChoiceString += "\n\t" + (i + 1) + ") " + item;//ListChoices()
-                    i++;
-                }
+                Console.WriteLine(ItemChoiceString(itemsToChooseFrom));
                 selection = Convert.ToInt32(Console.ReadLine());
-            } 
+            }
             while (selection > itemsToChooseFrom.Count);
 
-                return selection;
-            }
+            return selection;
         }
-        /*private string ShowChoices(List<string>itemsToChooseFrom)//can this be generic method to create list of items to choose from in menu (ListChoices())
+
+        private string ItemChoiceString(List<string> itemsToChooseFrom)//can this be generic method to create list of items to choose from in menu (ListChoices())
         {
             int i = 0;
-            string theBoatChoiceString = "";
-            foreach (string boat in itemsToChooseFrom)
+            string itemChoiceString = "";
+            foreach (string item in itemsToChooseFrom)
             {
-                theBoatChoiceString += "\n\t" + (i + 1) + ") " + boat;
+                itemChoiceString += "\n\t" + (i + 1) + ") " + item;//ListChoices()
                 i++;
             }
-            return theBoatChoiceString;
-        }*/
+            return itemChoiceString;
+
+        }
     }
+}
 
