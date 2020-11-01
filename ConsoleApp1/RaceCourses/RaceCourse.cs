@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BoatRace.RaceCourses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace BoatRace
 {
-    public class RaceCourse
+    public class RaceCourse : IRaceCourse
     {
         /*
          * RaceCourse currently is a parent class for the different race courses

@@ -17,10 +17,10 @@ namespace BoatRace
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Boat Racing");
-            
+
             //user selects a boat
             Console.WriteLine("\nChoose boats to race:");// + ListBoatChoices())
-           
+
             string boatChoice = boatChoices[makeSelection.SelectionMenu(boatChoices) - 1];
             //determines boat selected by calling menu_cli
             //sends boatchoices to the menu and returns the index for the boat selected
@@ -35,95 +35,51 @@ namespace BoatRace
             //name the boats
             Console.Write("Would you like to name your boat? (y or n) ");
             string answer = Console.ReadLine();
-            List<int> boatNameIndexes = new List<int>();//collects random generated numbers to make sure name is not duplicated
+
             if (answer == "y")
             {
                 boatsForRace[0].Name = makeSelection.UserNamesBoat();
             }
-                //name rest of boats                
-                for (int i = answer == "y"?1:0; i < boatsForRace.Count; i++)
-                {
-                    Random num = new Random();
-                    int nameIndex;
-                    do//makes sure duplicate numbers aren't used so each boat name is unique
-                    {
-                        nameIndex = num.Next(boatsForRace[i].boatNames.Count());
-                    }
-                    while (boatNameIndexes.Contains(nameIndex));
 
-                    boatsForRace[i].Name = boatsForRace[i].boatNames[nameIndex];
-                    boatNameIndexes.Add(nameIndex);
+            //name rest of boats
+            NameTheBoats(answer, boatsForRace);
 
-                }
-            
+            //assign horsepower, base movement rate, and captains to engines
+            AssignBoatProperties(boatsForRace);
 
-            //assign horsepower and captains to engines
-
-            foreach (Boat boat in boatsForRace)
-            {
-
-                boat.EngineHorsepower = boat.Horsepower(boat.GetType().Name);
-                Random num = new Random();
-                boat.Captain = num.Next(9) + 1;
-                boat.CaptainBonus = boat.EngineHorsepower <= 30 ? boat.Captain * .05 : boat.Captain * .01;
-
-                //this boatspeed line is temporary and should not stay here
-                //boatspeed line
-            }
-
-            
-            //set boat speed (base movement rate)
-            Dictionary<string, double> boatMovementRates = new Dictionary<string, double>();
-            foreach (Boat boat in boatsForRace)
-            {
-                boat.AverageSpeedInKnots += boat.SetAverageSpeedForStartOfRace();
-                //dictionary holds boat's name and average speed for calculating distance
-                boatMovementRates.Add(boat.Name, boat.AverageSpeedInKnots);
-            }
-            //Console.WriteLine("boat 2 rate: " + boatMovementRates[boatsForRace[0].Name]);
-            //Console.WriteLine("direct call:  " + boatsForRace[0].AverageSpeedInKnots);
-
-            //select a captain (modifies boat speed in the race)
             Console.WriteLine("\nBoat Captains improve your boat's speed.\n" +
                 "They are ranked from 1 to 10, 10 being the most experienced");
 
-            //show the boat hp, captain, and avg speed
-            //experiment with variations in average speed for race
-            Console.WriteLine("\nName\t\tHP\tCapt.\tAvg Speed\n");//header
-            foreach (Boat boat in boatsForRace)
-            {
-                Console.WriteLine(boat.Name + "\t" + boat.EngineHorsepower +
-                    "\t" + boat.Captain + "\t" + boat.AverageSpeedInKnots + "\n");
-            }
+            //show the boat hp, captain, and avg speed            
+            Console.WriteLine(DisplayBoatProperties(boatsForRace));
 
             //******************select race course***************************//
-            //choose a course--refactor to call a method in RaceCourse that uses dictionary to display choices
-            RaceCourse rc = new RaceCourse();//I think this race course object can be used through the whole race cyle.                      
-
+            //choose a course
+            RaceCourse rc = new RaceCourse();
             Console.WriteLine("Choose a race course");
 
             //currently courseSelected is only needed to determine the number of legs and the design of each leg(curve or straight)
             string courseSelected = rc.RaceCourseChoices()[makeSelection.SelectionMenu(rc.RaceCourseChoices()) - 1];
-            
+
             //display the course selected
             Console.WriteLine("course selected: " + courseSelected);
 
             //create race course--changed rc to boatRaceCourse here to read code easier
-            RaceCourse boatRaceCourse = rc;//new RaceCourse(courseSelected);//why create a new object; try using rc through whole race cycle
-            boatRaceCourse.RaceCourseConditions();
+            RaceCourse boatRaceCourse = rc;//new RaceCourse(courseSelected);//why create a new object?  Try using rc through whole race cycle
+            boatRaceCourse.RaceCourseConditions();//sets conditions for course displayed below
 
             //****************display current conditions on the water*******************
-            Console.WriteLine("\nCurrent Conditions on the water");
-            Console.WriteLine("Current: " + boatRaceCourse.WaterCurrent + "\nChop: " + boatRaceCourse.WaterChop
-                + "\nWind: " + boatRaceCourse.Wind + "\nWind Direction: " + boatRaceCourse.WindDirection +
-                "\nWater Current Direction: " + boatRaceCourse.WaterCurrentDirection + "\nStarting Direction: " + boatRaceCourse.StartDirection);
-
-
+            DisplayConditionsOnTheWater(boatRaceCourse);
 
             //Race Course = leg 1 + leg 2 + leg 3, etc.; number of legs depends on course selected.
 
-            //*******print out results for first leg*********************************//
+            //********************race simulator************************************//
+            //needs to call the same process only no results are printed out except the number of wins each boat has at the end as a percentage
 
+            //*******print out results for first leg*********************************//
+        } 
+        private static void RaceSim(Boat boatsForRace, RaceCourse boatRaceCourse, string courseSelected, int simOrActual)
+        { 
             int boatDirection = 0;
             int x = 0;//how else do I keep conditions for leg from printing only once?
             List<int> courseLegTypes = new List<int>();
@@ -135,7 +91,7 @@ namespace BoatRace
             for (int i = 0; i < courseLegTypes.Count; i++)
             {
                 Console.WriteLine("\nLeg " + (i + 1) + ":  " + (courseLegTypes[i] == 0 ? "straight" : "curve")); ;
-                
+
                 cumulativeLegTimesOfEachBoat.Clear();//needs to be cleared for each leg
 
                 foreach (Boat boat in boatsForRace)
@@ -167,7 +123,7 @@ namespace BoatRace
                     boatDirection = x == 0 ? boatRaceCourse.StartDirection : boatRaceCourse.NewLegDirection(boatDirection);
                     double currentBoatSpeed = Math.Round(boat.AverageSpeedInKnots * (boat.IncreaseBoatSpeed(boat.EngineHorsepower) +
                         boat.CaptainBonus + boatRaceCourse.CourseLeg(courseLegTypes[i], boatDirection, i + 1)), 2);
-                    
+
                     currentBoatSpeed += boat.SpeedAdjustment(currentBoatSpeed, boat.EngineHorsepower);
                     //time formula for distance traveled in a straight is 100 / currentBoatSpeed
                     //time formula for distance traveled in a curve is 25 / (currentBoatSpeed with adjustment for turn)
@@ -177,7 +133,7 @@ namespace BoatRace
                     if (x == 0)//loop prints out race conditions for first leg; x condition prevents it from printing more than once
                     {
                         //****condition reports for present leg of race
-                        Console.WriteLine("Water Chop: " + boatRaceCourse.waterChopTextCondition);
+                        
                         Console.WriteLine("Water Current Report: " + boatRaceCourse.WaterCurrentReport);
                         Console.WriteLine("Wind Report: " + boatRaceCourse.WindReport);
                         //******condition reports
@@ -187,11 +143,11 @@ namespace BoatRace
                     }
                     //leg results
 
-                    double thisLegTime = Math.Round((boatRaceCourse.StraightDistanceOfLeg / currentBoatSpeed)/10, 2);
+                    double thisLegTime = Math.Round((boatRaceCourse.StraightDistanceOfLeg / currentBoatSpeed) / 10, 2);
                     boat.BoatTimeForDistance += thisLegTime;
                     Console.WriteLine(boat.Name + "\t" + boat.EngineHorsepower +
                         "\t" + boat.Captain + "\t" + Math.Round(currentBoatSpeed, 2) +
-                        "\t" + thisLegTime + "\t" + Math.Round(boat.BoatTimeForDistance/10, 2) +
+                        "\t" + thisLegTime + "\t" + Math.Round(boat.BoatTimeForDistance / 10, 2) +
                         "\t" + boat.AverageSpeedInKnots);
 
                     cumulativeLegTimesOfEachBoat.Add(boat.BoatTimeForDistance);
@@ -208,12 +164,49 @@ namespace BoatRace
                 }//end of leg
                 List<string> boatPositions = new List<string>();
                 
-                boatPositions.AddRange(CalculateBoatPositionsAfterEachLeg(cumulativeLegTimesOfEachBoat,boatsForRace,boatsForRace.Count));
-                Console.WriteLine("\nPositions after Leg " + (i+1) + ": 1) " + boatPositions[0] + ", 2) " + boatPositions[1] + ", 3) " +
+                boatPositions.AddRange(CalculateBoatPositionsAfterEachLeg(cumulativeLegTimesOfEachBoat, boatsForRace, boatsForRace.Count));
+                Console.WriteLine("\nPositions after Leg " + (i + 1) + ": 1) " + boatPositions[0] + ", 2) " + boatPositions[1] + ", 3) " +
                     boatPositions[2] + ", 4) " + boatPositions[3]);
             }//end of loop through all legs
 
 
+        }
+
+        private static void DisplayConditionsOnTheWater(RaceCourse boatRaceCourse)
+        {
+            Console.WriteLine("\nCurrent Conditions on the water");
+            Console.WriteLine("Current: " + boatRaceCourse.WaterCurrent + "\nChop: " + boatRaceCourse.WaterChop
+                + "\nWind: " + boatRaceCourse.Wind + "\nWind Direction: " + boatRaceCourse.WindDirection +
+                "\nWater Chop: " + boatRaceCourse.waterChopTextCondition + "\nWater Current Direction: " +
+                boatRaceCourse.WaterCurrentDirection + "\nStarting Direction: " + boatRaceCourse.StartDirection);
+        }
+
+        private static string DisplayBoatProperties(List<Boat> boatsForRace)
+        {
+            string boatInfo = "\nName\t\tHP\tCapt.\tAvg Speed\n";//header
+            foreach (Boat boat in boatsForRace)
+            {
+                boatInfo += boat.Name + "\t" + boat.EngineHorsepower +
+                    "\t" + boat.Captain + "\t" + boat.AverageSpeedInKnots + "\n";
+            }
+            return boatInfo;
+        }
+
+        private static void AssignBoatProperties(List<Boat> boatsForRace)
+        {
+            foreach (Boat boat in boatsForRace)
+            {
+                //assign horsepower, base movement rate, and  to boats
+                boat.EngineHorsepower = boat.Horsepower(boat.GetType().Name);
+
+                //assign captains 
+                Random num = new Random();
+                boat.Captain = num.Next(9) + 1;
+                boat.CaptainBonus = boat.EngineHorsepower <= 30 ? boat.Captain * .05 : boat.Captain * .01;
+
+                //assign base movement rate
+                boat.AverageSpeedInKnots += boat.SetAverageSpeedForStartOfRace();
+            }
         }
 
         private static string ListBoatChoices()//this needs to go into Menu_CLI I think
@@ -283,9 +276,23 @@ namespace BoatRace
             }
             return list;
         }
-        private static string NameTheBoats()
+        private static void NameTheBoats(string nameTheBoatAnswer, List<Boat> boatsForRace)
         {
-            return null;
+            List<int> boatNameIndexes = new List<int>();//collects random generated numbers to make sure name is not duplicated
+            for (int i = nameTheBoatAnswer == "y" ? 1 : 0; i < boatsForRace.Count; i++)
+            {
+                Random num = new Random();
+                int nameIndex;
+                do//makes sure duplicate numbers aren't used so each boat name is unique
+                {
+                    nameIndex = num.Next(boatsForRace[i].boatNames.Count());
+                }
+                while (boatNameIndexes.Contains(nameIndex));
+
+                boatsForRace[i].Name = boatsForRace[i].boatNames[nameIndex];
+                boatNameIndexes.Add(nameIndex);
+
+            }
         }
 
         private static List<string> CalculateBoatPositionsAfterEachLeg(List<double> legTimes, List<Boat> boats, int numOfBoats)

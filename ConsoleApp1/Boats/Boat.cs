@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace BoatRace
+namespace BoatRace 
 {
-    public abstract class Boat
+    public abstract class Boat : IEnumerator,IEnumerable
     {
+        private boat[] boatList;
+        int position = -1;
         /******bools******/
         public bool IsTrailerable { get; set; }        
         
@@ -139,6 +142,27 @@ namespace BoatRace
             int x = num.Next(10);
             int posOrNeg = x <= 7 ? 1 : -1;
             return speed * ((num.NextDouble() * (.15 * posOrNeg)));
+        }
+        //IEnumerator and IEnumerable require these methods.
+        public IEnumerator GetEnumerator()
+        {
+            return (IEnumerator)this;
+        }
+        //IEnumerator
+        public bool MoveNext()
+        {
+            position++;
+            return (position < boatList.Length);
+        }
+        //IEnumerable
+        public void Reset()
+        {
+            position = 0;
+        }
+        //IEnumerable
+        public object Current
+        {
+            get { return boatList[position]; }
         }
     }
     
