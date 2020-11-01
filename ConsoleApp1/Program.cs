@@ -28,71 +28,9 @@ namespace BoatRace
             //actual boats are created below                                                                    
 
             //Create a list to hold boats and their properties
-            List<Boat> boatsForRace = new List<Boat>();
-            
-            //Build the Boat
-            for (int i = 0; i < boatChoices.Count; i++)
-            {
-                if (boatChoice == "Sailboat")
-                {
-                    //Create a sailboat
-                    SailBoat boat = new SailBoat(1, "sloop", "diesel", 34, false);
-                    boatsForRace.Add(boat);//this the Boat Type list
-
-                    /*
-                     * referencing a sailplan is an issue. 
-                     * Might be solved through a dictionary once name is given.  
-                     * Name could be key.
-                    */
-
-
-                    //next line is probably not necessary
-                    boat.RacingBoats.Add(boat);//do I need this?                    
-                    
-
-                } else if (boatChoice == "Trawler")
-                {
-                    //Create a Trawler
-                    Trawler boat = new Trawler(1, "diesel", 38, false);
-                    boatsForRace.Add(boat);//this the Boat Type list
-
-                    boat.racingBoats.Add(boat);//do I need this?
-
-                } else if (boatChoice == "PontoonBoat")
-                {
-                    //Create a Pontoon Boat
-                    PontoonBoat boat = new PontoonBoat(2, "gas", 30, true);
-                    boatsForRace.Add(boat);//this the Boat Type list
-
-                    boat.racingBoats.Add(boat);//do I need this?
-
-                } else if (boatChoice == "SpeedBoat")
-                {
-                    //Create a speedboat
-                    SpeedBoat boat = new SpeedBoat(1, "gas", 35, true);
-                    boatsForRace.Add(boat);//this the Boat Type list
-
-                    boat.racingBoats.Add(boat);//do I need this?
-
-                }
-                else
-                {
-                    Console.WriteLine("You have not selected an available boat.");
-                };
-            }
-
-
-            //Console.WriteLine(CreateSailboatObject());
-            /*foreach(string item in theRaceBoats)
-            {
-                Console.WriteLine(item);
-            }
-            foreach (Boat item in boatsForRace)
-            {
-                Console.WriteLine(item.Engine);
-            }
-            */
-
+            //Build the Boat--right now, builds four boats to race but could be changed to 
+            //collect a user input to vary the number of boats to race
+            List<Boat> boatsForRace = CreateTheBoats(boatChoice, boatChoices.Count);
 
             //name the boats
             Console.Write("Would you like to name your boat? (y or n) ");
@@ -100,11 +38,10 @@ namespace BoatRace
             List<int> boatNameIndexes = new List<int>();//collects random generated numbers to make sure name is not duplicated
             if (answer == "y")
             {
-                Console.Write("Okay, please enter your boat name: ");
-                boatsForRace[0].Name = Console.ReadLine();
-
+                boatsForRace[0].Name = makeSelection.UserNamesBoat();
+            }
                 //name rest of boats                
-                for (int i = 1; i < boatsForRace.Count; i++)
+                for (int i = answer == "y"?1:0; i < boatsForRace.Count; i++)
                 {
                     Random num = new Random();
                     int nameIndex;
@@ -118,23 +55,7 @@ namespace BoatRace
                     boatNameIndexes.Add(nameIndex);
 
                 }
-            }
-            else
-            {
-                for (int i = 0; i < boatsForRace.Count; i++)
-                {
-                    Random num = new Random();
-                    int nameIndex;
-                    do//makes sure duplicate numbers aren't used so each boat name is unique
-                    {
-                        nameIndex = num.Next(boatsForRace[i].boatNames.Count());
-                    }
-                    while (boatNameIndexes.Contains(nameIndex));
-
-                    boatsForRace[i].Name = boatsForRace[i].boatNames[nameIndex];
-                    boatNameIndexes.Add(nameIndex);
-                }
-            }
+            
 
             //assign horsepower and captains to engines
 
@@ -155,8 +76,9 @@ namespace BoatRace
             Dictionary<string, double> boatMovementRates = new Dictionary<string, double>();
             foreach (Boat boat in boatsForRace)
             {
+                boat.AverageSpeedInKnots += boat.SetAverageSpeedForStartOfRace();
                 //dictionary holds boat's name and average speed for calculating distance
-                boatMovementRates.Add(boat.Name, boatsForRace[0].AverageSpeedInKnots);
+                boatMovementRates.Add(boat.Name, boat.AverageSpeedInKnots);
             }
             //Console.WriteLine("boat 2 rate: " + boatMovementRates[boatsForRace[0].Name]);
             //Console.WriteLine("direct call:  " + boatsForRace[0].AverageSpeedInKnots);
@@ -269,8 +191,8 @@ namespace BoatRace
                     boat.BoatTimeForDistance += thisLegTime;
                     Console.WriteLine(boat.Name + "\t" + boat.EngineHorsepower +
                         "\t" + boat.Captain + "\t" + Math.Round(currentBoatSpeed, 2) +
-                        "\t" + thisLegTime + "\t" + Math.Round(boat.BoatTimeForDistance/100, 2) +
-                        "\t" + Math.Round(boat.BoatTimeForDistance, 2));
+                        "\t" + thisLegTime + "\t" + Math.Round(boat.BoatTimeForDistance/10, 2) +
+                        "\t" + boat.AverageSpeedInKnots);
 
                     cumulativeLegTimesOfEachBoat.Add(boat.BoatTimeForDistance);
                     /* how to determine position of each boat
@@ -304,6 +226,66 @@ namespace BoatRace
                 i++;
             }
             return theBoatChoiceString;
+        }
+        private static List<Boat> CreateTheBoats(string boatSelection, int numberOfBoatsToCreate)
+        {
+            //Build the Boat--right now, builds four boats to race but could be changed to 
+            //collect a user input to vary the number of boats to race
+            List<Boat> list = new List<Boat>();
+            for (int i = 0; i < boatChoices.Count; i++)
+            {                
+                if (boatSelection == "Sailboat")
+                {
+                    //Create a sailboat
+                    SailBoat boat = new SailBoat(1, "sloop", "diesel", 34, false);
+                    list.Add(boat);//this the Boat Type list
+
+                    /*
+                        * referencing a sailplan is an issue. 
+                        * Might be solved through a dictionary once name is given.  
+                        * Name could be key.
+                    */
+                    //next line is probably not necessary
+                    boat.RacingBoats.Add(boat);//do I need this?
+                }
+                else if (boatSelection == "Trawler")
+                {
+                    //Create a Trawler
+                    Trawler boat = new Trawler(1, "diesel", 38, false);
+                    list.Add(boat);//this the Boat Type list
+
+                    boat.racingBoats.Add(boat);//do I need this?
+
+                }
+                else if (boatSelection == "PontoonBoat")
+                {
+                    //Create a Pontoon Boat
+                    PontoonBoat boat = new PontoonBoat(2, "gas", 30, true);
+                    list.Add(boat);//this the Boat Type list
+
+                    boat.racingBoats.Add(boat);//do I need this?
+
+                }
+                else if (boatSelection == "SpeedBoat")
+                {
+                    //Create a speedboat
+                    SpeedBoat boat = new SpeedBoat(1, "gas", 35, true);
+                    list.Add(boat);//this the Boat Type list
+
+                    boat.racingBoats.Add(boat);//do I need this?
+
+                }
+                else
+                {
+                    Console.WriteLine("You have not selected an available boat.");
+                };
+                
+            }
+            return list;
+        }
+        private static string NameTheBoats()
+        {
+            return null;
         }
 
         private static List<string> CalculateBoatPositionsAfterEachLeg(List<double> legTimes, List<Boat> boats, int numOfBoats)

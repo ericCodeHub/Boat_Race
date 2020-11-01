@@ -36,6 +36,12 @@ namespace BoatRace
             return itemChoiceString;
 
         }
+        public string UserNamesBoat()
+        {
+            Console.Write("Okay, please enter your boat name: ");
+            return Console.ReadLine();
+            //boatsForRace[0].Name = Console.ReadLine();
+        }
     }
 }
 

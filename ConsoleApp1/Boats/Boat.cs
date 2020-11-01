@@ -66,6 +66,19 @@ namespace BoatRace
             }
             return "cannot be towed on a trailer";
         }
+        public double SetAverageSpeedForStartOfRace()
+        {
+            /*
+             * takes default average speed for boat type
+             * adjusts it by 0, 1, or 2 in either direction (pos or neg)
+             * 
+             */
+            Random num = new Random();
+            int adjustment;
+            int posOrNeg = num.Next(10) > 4 ? 1 : -1;
+            adjustment = num.Next(3) * posOrNeg;
+            return adjustment;
+        }
         public double Horsepower(string boatType)
         {
             Random numForHPListIndex = new Random();
@@ -120,7 +133,7 @@ namespace BoatRace
             return IncreaseBoatSpeed(hpOfEngine);
             //return averageSpeed + (averageSpeed * IncreaseBoatSpeed(hpOfEngine));
         }
-        public double SpeedAdjustment(double speed, double hp)
+        public double SpeedAdjustment(double speed, double hp)//is this used?
         {
             Random num = new Random();
             int x = num.Next(10);
