@@ -7,10 +7,10 @@ using System.Text;
 
 namespace BoatRace 
 {
-    public abstract class Boat : IEnumerator,IEnumerable
+    public abstract class Boat
     {
-        private boat[] boatList;
-        int position = -1;
+        /*private boat[] boatList;
+        int position = -1;*/
         /******bools******/
         public bool IsTrailerable { get; set; }        
         
@@ -144,7 +144,7 @@ namespace BoatRace
             return speed * ((num.NextDouble() * (.15 * posOrNeg)));
         }
         //IEnumerator and IEnumerable require these methods.
-        public IEnumerator GetEnumerator()
+        /*public IEnumerator GetEnumerator()
         {
             return (IEnumerator)this;
         }
@@ -163,7 +163,7 @@ namespace BoatRace
         public object Current
         {
             get { return boatList[position]; }
-        }
+        }*/
     }
     
 }

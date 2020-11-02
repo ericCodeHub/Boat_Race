@@ -42,7 +42,7 @@ namespace BoatRace
             }
 
             //name rest of boats
-            NameTheBoats(answer, boatsForRace);
+            NameTheBoats(answer, boatsForRace);            
 
             //assign horsepower, base movement rate, and captains to engines
             AssignBoatProperties(boatsForRace);
@@ -72,13 +72,18 @@ namespace BoatRace
             DisplayConditionsOnTheWater(boatRaceCourse);
 
             //Race Course = leg 1 + leg 2 + leg 3, etc.; number of legs depends on course selected.
-
+            //build dictionary for holding race simulation results
+            foreach (Boat boat in boatsForRace)
+            {
+                boatRaceCourse.RaceSimResults.Add(boat.Name, 0);
+            }
+            boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 1, 1);
             //********************race simulator************************************//
             //needs to call the same process only no results are printed out except the number of wins each boat has at the end as a percentage
 
             //*******print out results for first leg*********************************//
         } 
-        private static void RaceSim(Boat boatsForRace, RaceCourse boatRaceCourse, string courseSelected, int simOrActual)
+        private static void RaceSim(List<Boat> boatsForRace, RaceCourse boatRaceCourse, string courseSelected, int simOrActual)
         { 
             int boatDirection = 0;
             int x = 0;//how else do I keep conditions for leg from printing only once?
@@ -90,7 +95,7 @@ namespace BoatRace
 
             for (int i = 0; i < courseLegTypes.Count; i++)
             {
-                Console.WriteLine("\nLeg " + (i + 1) + ":  " + (courseLegTypes[i] == 0 ? "straight" : "curve")); ;
+                Console.WriteLine("\nLeg " + (i + 1) + ":  " + (courseLegTypes[i] == 0 ? "straight" : "curve")); 
 
                 cumulativeLegTimesOfEachBoat.Clear();//needs to be cleared for each leg
 
