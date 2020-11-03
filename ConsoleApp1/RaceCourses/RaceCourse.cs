@@ -277,7 +277,7 @@ namespace BoatRace
                 //this list holds the cumulative leg time of the boats
                 List<double> cumulativeLegTimesOfEachBoat = new List<double>();
 
-                for (int i = 0; i < courseLegTypes.Count; i++)//this for loop runs the race
+                for (int i = 0; i < courseLegTypes.Count; i++)//this for loop compiles each leg of the race
                 {
                     if (simOrActual == 1)
                     {
@@ -336,9 +336,10 @@ namespace BoatRace
                 
                 
             }
+            Console.WriteLine("\nHere are the results based on a simulation of " + numOfRacesToSim + " races:");
             foreach (KeyValuePair<string, int> result in boatRaceCourse.RaceSimResults)
             {
-                Console.WriteLine(result.Key + ": " + result.Value);
+                Console.WriteLine("\t" + result.Key + ": " + "\t" + result.Value + "\t" + Math.Round(result.Value/numOfRacesToSim,1) + "%");
             }
         }
 

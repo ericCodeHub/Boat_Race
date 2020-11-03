@@ -141,7 +141,8 @@ namespace BoatRace
             Random num = new Random();
             int x = num.Next(10);
             int posOrNeg = x <= 7 ? 1 : -1;
-            return speed * ((num.NextDouble() * (.15 * posOrNeg)));
+            //by modifying the percentage in the next line, the outcome of race can vary.
+            return speed * ((num.NextDouble() * (.33 * posOrNeg)));
         }
         //IEnumerator and IEnumerable require these methods.
         /*public IEnumerator GetEnumerator()

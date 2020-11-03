@@ -77,7 +77,7 @@ namespace BoatRace
             {
                 boatRaceCourse.RaceSimResults.Add(boat.Name, 0);
             }
-            boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 1, 1);
+            boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 0, 100);
             //********************race simulator************************************//
             //needs to call the same process only no results are printed out except the number of wins each boat has at the end as a percentage
 
@@ -210,7 +210,7 @@ namespace BoatRace
                 boat.CaptainBonus = boat.EngineHorsepower <= 30 ? boat.Captain * .05 : boat.Captain * .01;
 
                 //assign base movement rate
-                boat.AverageSpeedInKnots += boat.SetAverageSpeedForStartOfRace();
+                //boat.AverageSpeedInKnots += boat.SetAverageSpeedForStartOfRace();
             }
         }
 
