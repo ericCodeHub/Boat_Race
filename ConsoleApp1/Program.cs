@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace BoatRace
 {
-    class Program
+    public class Program
     {
         //these are the kinds of boats that can be raced
         static List<string> boatChoices = new List<string>()
@@ -42,7 +42,7 @@ namespace BoatRace
             }
 
             //name rest of boats
-            NameTheBoats(answer, boatsForRace);            
+            NameTheBoats(answer, boatsForRace);
 
             //assign horsepower, base movement rate, and captains to engines
             AssignBoatProperties(boatsForRace);
@@ -77,11 +77,22 @@ namespace BoatRace
             {
                 boatRaceCourse.RaceSimResults.Add(boat.Name, 0);
             }
-            boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 0, 100);
+            boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 0, 1000);
             //********************race simulator************************************//
             //needs to call the same process only no results are printed out except the number of wins each boat has at the end as a percentage
+            Console.WriteLine("\nBased on the results of the simulation, which boat do you think will win the race?");
+            int boatToWin = makeSelection.SelectionMenu(boatRaceCourse.RaceSimResults.Keys.ToList());
+            Console.WriteLine("Ok, " + boatsForRace[boatToWin - 1].Name + " it is.  Let's see if you're right." );
+            boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 1, 1);
+            if (boatRaceCourse.RaceWinner == boatsForRace[boatToWin - 1].Name)
+            {
+                Console.WriteLine("\nCongratulations! You picked the winner!");
+            }
+            else
+            {
+                Console.WriteLine("\nSorry, your boat, " + boatsForRace[boatToWin - 1].Name + ", lost.");
+            }
 
-            //*******print out results for first leg*********************************//
         } 
         private static void RaceSim(List<Boat> boatsForRace, RaceCourse boatRaceCourse, string courseSelected, int simOrActual)
         { 
@@ -197,7 +208,7 @@ namespace BoatRace
             return boatInfo;
         }
 
-        private static void AssignBoatProperties(List<Boat> boatsForRace)
+        public static void AssignBoatProperties(List<Boat> boatsForRace)
         {
             foreach (Boat boat in boatsForRace)
             {
@@ -225,12 +236,12 @@ namespace BoatRace
             }
             return theBoatChoiceString;
         }
-        private static List<Boat> CreateTheBoats(string boatSelection, int numberOfBoatsToCreate)
+        public static List<Boat> CreateTheBoats(string boatSelection, int numberOfBoatsToCreate)
         {
             //Build the Boat--right now, builds four boats to race but could be changed to 
             //collect a user input to vary the number of boats to race
             List<Boat> list = new List<Boat>();
-            for (int i = 0; i < boatChoices.Count; i++)
+            for (int i = 0; i < numberOfBoatsToCreate; i++)
             {                
                 if (boatSelection == "Sailboat")
                 {

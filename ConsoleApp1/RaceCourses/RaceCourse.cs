@@ -54,6 +54,7 @@ namespace BoatRace
             }
         }
         /*******strings*******/
+        public string RaceWinner { get; set; }
         public string WindReport { get; set; }
         public string WaterCurrentReport { get; set; }
         public string waterChopTextCondition
@@ -269,6 +270,7 @@ namespace BoatRace
         {
             for (int a = 0; a < numOfRacesToSim; a++)
             {
+                RaceWinner = "";
                 int boatDirection = 0;
                 int x = 0;//how else do I keep conditions for leg from printing only once?
                 List<int> courseLegTypes = new List<int>();
@@ -276,7 +278,7 @@ namespace BoatRace
 
                 //this list holds the cumulative leg time of the boats
                 List<double> cumulativeLegTimesOfEachBoat = new List<double>();
-
+                ClearBoatTimesForNextRace(boatsForRace);
                 for (int i = 0; i < courseLegTypes.Count; i++)//this for loop compiles each leg of the race
                 {
                     if (simOrActual == 1)
@@ -308,7 +310,8 @@ namespace BoatRace
                         double thisLegTime = ThisLegTime(boatRaceCourse, currentBoatSpeed);
                         boat.BoatTimeForDistance += thisLegTime;
 
-                        if (simOrActual == 1)
+                        //*******print out results for leg*********************************//
+                        if (simOrActual == 1)//if not a sim
                         {
                             Console.WriteLine(boat.Name + "\t" + boat.EngineHorsepower +
                                 "\t" + boat.Captain + "\t" + Math.Round(currentBoatSpeed, 2) +
@@ -318,7 +321,7 @@ namespace BoatRace
 
                         cumulativeLegTimesOfEachBoat.Add(boat.BoatTimeForDistance);
                     }//end of leg
-                    
+
                     List<string> boatPositions = new List<string>();
 
                     boatPositions.AddRange(CalculateBoatPositionsAfterEachLeg(cumulativeLegTimesOfEachBoat, boatsForRace, boatsForRace.Count));
@@ -327,19 +330,34 @@ namespace BoatRace
                         Console.WriteLine("\nPositions after Leg " + (i + 1) + ": 1) " + boatPositions[0] + ", 2) " + boatPositions[1] + ", 3) " +
                         boatPositions[2] + ", 4) " + boatPositions[3]);
                     }
-                    if (i == courseLegTypes.Count-1)
+                    if (i == courseLegTypes.Count - 1)
                     {
                         boatRaceCourse.RaceSimResults[boatPositions[0]] += 1;
+                        if (simOrActual == 1)
+                        {
+                            RaceWinner = boatPositions[0];
+                        }
                     }
 
                 }//end of loop through all legs
-                
-                
+
+
             }
-            Console.WriteLine("\nHere are the results based on a simulation of " + numOfRacesToSim + " races:");
-            foreach (KeyValuePair<string, int> result in boatRaceCourse.RaceSimResults)
+            if (simOrActual == 0)
             {
-                Console.WriteLine("\t" + result.Key + ": " + "\t" + result.Value + "\t" + Math.Round(result.Value/numOfRacesToSim,1) + "%");
+                Console.WriteLine("\nHere are the results based on a simulation of " + numOfRacesToSim + " races:");
+                foreach (KeyValuePair<string, int> result in boatRaceCourse.RaceSimResults)
+                {
+                    Console.WriteLine("\t" + result.Key + ": " + "\t" + result.Value + "\t" + Math.Round(((double)result.Value / numOfRacesToSim) * 100, 0) + "%");
+                }
+            }
+        }
+
+        private static void ClearBoatTimesForNextRace(List<Boat> boatsForRace)
+        {
+            foreach (Boat boat in boatsForRace)
+            {
+                boat.BoatTimeForDistance = 0;
             }
         }
 
@@ -351,8 +369,8 @@ namespace BoatRace
         double CurrentBoatSpeed(RaceCourse boatRaceCourse, int boatDirection, List<int> courseLegTypes, int i, Boat boat)
         {
             double currentBoatSpeed = Math.Round(boat.AverageSpeedInKnots * (boat.IncreaseBoatSpeed(boat.EngineHorsepower) +
-                                        boat.CaptainBonus + boatRaceCourse.CourseLeg(courseLegTypes[i], boatDirection, i + 1)), 2);
-
+                                        boatRaceCourse.CourseLeg(courseLegTypes[i], boatDirection, i + 1)), 2);
+            currentBoatSpeed += (currentBoatSpeed * boat.CaptainBonus);//add captain bonus
             currentBoatSpeed += boat.SpeedAdjustment(currentBoatSpeed, boat.EngineHorsepower);
             return currentBoatSpeed;
         }

@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using BoatRace;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BoatRaceExample.Tests
@@ -94,6 +96,20 @@ namespace BoatRaceExample.Tests
         public void BoatSelectionMenuTest()
         {
             Console.WriteLine("");
+        }
+        [TestMethod]
+        public void RaceSimResultsTest()
+        {
+            RaceCourse rc = new RaceCourse();
+            List<Boat> rBoats = BoatRace.Program.CreateTheBoats("SpeedBoat",4);
+            BoatRace.Program.AssignBoatProperties(rBoats);
+            for(int i = 0; i < rBoats.Count; i++)
+            {
+                rBoats[i].Name = "boat" + (i+1);
+                rc.RaceSimResults.Add(rBoats[i].Name, 0);
+            }
+            rc.RaceSim(rBoats, rc, "Straight", 0, 1000);
+            
         }
 
     }

@@ -106,7 +106,7 @@ namespace BoatRace
             else if (hpOfEngine > 10 && hpOfEngine <= 20)
             {
                 posOrNeg = num.Next(10);//determines if "increase" will be positive or negative(decrease)
-                increase = (num.NextDouble() * .152) * posOrNeg < 8 ? 1 :-1;//0 = positive; 1 = negative                
+                increase = (num.NextDouble() * .152) * posOrNeg < 8 ? 1 :-1;                
                 //.25 is max deviation
             }
             else if (hpOfEngine > 20 && hpOfEngine <= 30)
@@ -136,7 +136,7 @@ namespace BoatRace
             return IncreaseBoatSpeed(hpOfEngine);
             //return averageSpeed + (averageSpeed * IncreaseBoatSpeed(hpOfEngine));
         }
-        public double SpeedAdjustment(double speed, double hp)//is this used?
+        public double SpeedAdjustment(double speed, double hp)//is this used? Yes
         {
             Random num = new Random();
             int x = num.Next(10);
@@ -144,27 +144,7 @@ namespace BoatRace
             //by modifying the percentage in the next line, the outcome of race can vary.
             return speed * ((num.NextDouble() * (.33 * posOrNeg)));
         }
-        //IEnumerator and IEnumerable require these methods.
-        /*public IEnumerator GetEnumerator()
-        {
-            return (IEnumerator)this;
-        }
-        //IEnumerator
-        public bool MoveNext()
-        {
-            position++;
-            return (position < boatList.Length);
-        }
-        //IEnumerable
-        public void Reset()
-        {
-            position = 0;
-        }
-        //IEnumerable
-        public object Current
-        {
-            get { return boatList[position]; }
-        }*/
+        
     }
     
 }
