@@ -168,18 +168,32 @@ namespace BoatRace
             return BoatLegs[courseSelection];
         }
 
-        public double CurvedLegSpeedEffect()
+        public double CurvedLegSpeedEffect(Boat boat)
         {
             /*
              * A curved leg can take longer to navigate base on how wide a turn is made
              * Boat speed is affected by hp, captain, and speed heading into the turn
              * currently going with max impact of 40% based on captain rating and speed going into turn
-             * BoatTimeForDistance would not have been recalculated yet, so that can be used for speed into turn
+             * 
              * all boat's speeds should be altered somewhat, say 10%; possible formula:
              * captains < 5, 20% to 40%; >5 10% to 20%
              * speed
             */
-            return 0;
+            Random num = new Random();
+            double curveEffect;
+
+            if (boat.Captain <= 5)
+            {
+                curveEffect = num.NextDouble() * .404;
+                if (curveEffect < .20)
+                    curveEffect = .20;
+            }
+            else
+            {
+                curveEffect = num.NextDouble() * .202;
+                if (curveEffect < .10) { curveEffect = .10; }
+            }
+            return curveEffect;
 
         }
         public double WindCondition(int boatDirection)
@@ -307,7 +321,7 @@ namespace BoatRace
                         x++;
                         //leg results
 
-                        double thisLegTime = ThisLegTime(boatRaceCourse, currentBoatSpeed);
+                        double thisLegTime = ThisLegTime(boat, boatRaceCourse, currentBoatSpeed,courseLegTypes[i]);
                         boat.BoatTimeForDistance += thisLegTime;
 
                         //*******print out results for leg*********************************//
@@ -361,9 +375,11 @@ namespace BoatRace
             }
         }
 
-        double ThisLegTime(RaceCourse boatRaceCourse, double currentBoatSpeed)
+        double ThisLegTime(Boat boat, RaceCourse boatRaceCourse, double currentBoatSpeed, int courseLegType)
         {
-            return Math.Round((boatRaceCourse.StraightDistanceOfLeg / currentBoatSpeed) / 10, 2);
+            double legDistance = courseLegType == 0 ? boatRaceCourse.StraightDistanceOfLeg : CurvedDistanceOfLeg;
+            currentBoatSpeed = courseLegType == 0 ? currentBoatSpeed : currentBoatSpeed += currentBoatSpeed * CurvedLegSpeedEffect(boat);
+            return Math.Round((legDistance / currentBoatSpeed) / 10, 2);
         }
 
         double CurrentBoatSpeed(RaceCourse boatRaceCourse, int boatDirection, List<int> courseLegTypes, int i, Boat boat)

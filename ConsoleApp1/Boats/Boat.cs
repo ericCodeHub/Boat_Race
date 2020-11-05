@@ -107,25 +107,25 @@ namespace BoatRace
             {
                 posOrNeg = num.Next(10);//determines if "increase" will be positive or negative(decrease)
                 increase = (num.NextDouble() * .152) * posOrNeg < 8 ? 1 :-1;                
-                //.25 is max deviation
+                //.15 is max deviation
             }
             else if (hpOfEngine > 20 && hpOfEngine <= 30)
             {
                 posOrNeg = num.Next(10);//determines if "increase" will be positive or negative(decrease)
                 increase = (num.NextDouble() * .253) * posOrNeg < 8 ? 1 : -1;
-                //.50 is max deviation
+                //.25 is max deviation
             }
             else if (hpOfEngine > 30 && hpOfEngine <= 40)
             {
                 posOrNeg = num.Next(10);//determines if "increase" will be positive or negative(decrease)
                 increase = (num.NextDouble() * .353) * posOrNeg < 7 ? 1 : -1;
-                //.75 is max deviation
+                //.35 is max deviation
             }
             else if (hpOfEngine > 40 && hpOfEngine <= 50)
             {
                 posOrNeg = num.Next(10);//determines if "increase" will be positive or negative(decrease)
                 increase = (num.NextDouble() * .505) * posOrNeg < 6 ? 1 : -1;
-                //1 is max deviation
+                //.50 is max deviation
             }
             return increase;
         }

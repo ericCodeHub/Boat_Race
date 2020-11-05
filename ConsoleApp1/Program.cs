@@ -217,7 +217,7 @@ namespace BoatRace
 
                 //assign captains 
                 Random num = new Random();
-                boat.Captain = num.Next(9) + 1;
+                boat.Captain = num.Next(7) + 3;
                 boat.CaptainBonus = boat.EngineHorsepower <= 30 ? boat.Captain * .05 : boat.Captain * .01;
 
                 //assign base movement rate
