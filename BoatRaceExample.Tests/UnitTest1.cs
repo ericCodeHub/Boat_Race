@@ -111,6 +111,18 @@ namespace BoatRaceExample.Tests
             rc.RaceSim(rBoats, rc, "Straight", 0, 1000);
             
         }
-
+        [TestMethod]
+        public void SingleRaceTest()
+        {
+            RaceCourse rc = new RaceCourse();
+            List<Boat> rBoats = BoatRace.Program.CreateTheBoats("SpeedBoat", 4);
+            BoatRace.Program.AssignBoatProperties(rBoats);
+            for (int i = 0; i < rBoats.Count; i++)
+            {
+                rBoats[i].Name = "boat" + (i + 1);
+                rc.RaceSimResults.Add(rBoats[i].Name, 0);
+            }
+            rc.RaceSim(rBoats, rc, "Triangle",1, 1);
+        }
     }
 }

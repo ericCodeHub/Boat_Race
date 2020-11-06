@@ -118,7 +118,7 @@ namespace BoatRace
         public int NewLegDirection(int boatDirection)//changes boat direction
         {
             //if direction is four then must reset to 1
-            return boatDirection == 4 ? 1 : boatDirection++;
+            return boatDirection == 4 ? 1 : boatDirection+=1;
         }
         public double CourseLeg(int legShape, int boatDirection, int legCount)  
         {
@@ -254,7 +254,7 @@ namespace BoatRace
                 WaterCurrentReport = boatDirection + "Boats are moving with the current";
 
             }
-            else if ((WaterCurrentDirection - boatDirection) == 1 || WaterCurrent - boatDirection == 3) 
+            else if ((WaterCurrentDirection - boatDirection) == 1 ||Math.Abs(WaterCurrent - boatDirection) == 3) 
             {
                 //return (WindDirection + " " + StartDirection + " Boat is angled into the wind in leg 1");
                 WaterCurrentReport = boatDirection + "Boats are angled into the current.";
@@ -287,6 +287,9 @@ namespace BoatRace
                 RaceWinner = "";
                 int boatDirection = 0;
                 int x = 0;//how else do I keep conditions for leg from printing only once?
+                //x is a loop counter for each boat; every fourth x = 1 leg
+
+                //courseLegTypes hold the shape of the course--0 is straight, 1 is a curve/turn
                 List<int> courseLegTypes = new List<int>();
                 courseLegTypes.AddRange(boatRaceCourse.TypesOfLegsInCourse(courseSelected));
 
@@ -301,17 +304,19 @@ namespace BoatRace
                     }
                     cumulativeLegTimesOfEachBoat.Clear();//needs to be cleared/reset for each leg
 
+                    //boat direction changes with each turn
+                    boatDirection = x == 0 ? boatRaceCourse.StartDirection : courseLegTypes[i] == 0?boatDirection : boatRaceCourse.NewLegDirection(boatDirection);
                     foreach (Boat boat in boatsForRace)
                     {
-                        boatDirection = x == 0 ? boatRaceCourse.StartDirection : boatRaceCourse.NewLegDirection(boatDirection);
+                        
                         double currentBoatSpeed = CurrentBoatSpeed(boatRaceCourse, boatDirection, courseLegTypes, i, boat);
                         //time formula for distance traveled in a straight is 100 / currentBoatSpeed
                         //time formula for distance traveled in a curve is 25 / (currentBoatSpeed with adjustment for turn)
 
-                        if (simOrActual == 1 & x == 0)//prints out wind and water current conditions for each leg
+                        if (simOrActual == 1 & x % boatsForRace.Count == 0)//prints out wind and water current conditions for each leg
                         {
                             //****condition reports for present leg of race
-                            Console.WriteLine("Water Current Report: " + boatRaceCourse.WaterCurrentReport);
+                            Console.WriteLine("Water Current Report: " + WaterCurrentReport);
                             Console.WriteLine("Wind Report: " + boatRaceCourse.WindReport);
                             //******condition reports
 

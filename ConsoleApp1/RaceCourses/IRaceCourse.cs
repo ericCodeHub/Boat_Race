@@ -18,12 +18,13 @@ namespace BoatRace.RaceCourses
             List<double> cumulativeLegTimesOfEachBoat = new List<double>();
 
             for (int i = 0; i < courseLegTypes.Count; i++)//this for loop runs the race
+                //i represents one leg of race
             {
                 cumulativeLegTimesOfEachBoat.Clear();//needs to be cleared/reset for each leg
-
+                boatDirection = x == 0 ? boatRaceCourse.StartDirection : boatRaceCourse.NewLegDirection(boatDirection);
                 foreach (Boat boat in boatsForRace)
                 {
-                    boatDirection = x == 0 ? boatRaceCourse.StartDirection : boatRaceCourse.NewLegDirection(boatDirection);
+                    //boatDirection = x == 0 ? boatRaceCourse.StartDirection : boatRaceCourse.NewLegDirection(boatDirection);
                     double currentBoatSpeed = CurrentBoatSpeed(boatRaceCourse, boatDirection, courseLegTypes, i, boat);
                     //time formula for distance traveled in a straight is 100 / currentBoatSpeed
                     //time formula for distance traveled in a curve is 25 / (currentBoatSpeed with adjustment for turn)
