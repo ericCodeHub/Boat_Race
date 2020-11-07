@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using BoatRace;
@@ -31,13 +32,22 @@ namespace BoatRaceExample.Tests
             Assert.AreEqual(-0.1, rc.WindCondition(3));
         }
         [TestMethod]
-        public void CurrentConditionTest()
+        public void CurrentConditionTest1()
         {
             RaceCourse rc = new RaceCourse();
             rc.WaterCurrent = 3;
             rc.WaterCurrentDirection = 1;
             Assert.AreEqual(0.1, rc.WaterCurrentCondition(2));               
 
+        }
+        [TestMethod]
+        public void CurrentConditionTest2()
+        {
+            RaceCourse rc = new RaceCourse();
+            rc.WaterCurrent = 3;
+            rc.WaterCurrentDirection = 4;
+            
+            Assert.AreEqual(-0.1, rc.WaterCurrentCondition(1));
         }
         [TestMethod]
         public void BoatSpeedTest()
@@ -101,6 +111,24 @@ namespace BoatRaceExample.Tests
                 rc.RaceSimResults.Add(rBoats[i].Name, 0);
             }
             rc.RaceSim(rBoats, rc, "Triangle",1, 1);
+        }
+        [TestMethod]
+        public void CurrentBoatSpeedTest()
+        {
+            RaceCourse rc = new RaceCourse();
+            List<Boat> rBoats = BoatRace.Program.CreateTheBoats("SpeedBoat", 4);
+            rBoats[0].EngineHorsepower = rBoats[0].Horsepower(rBoats[0].GetType().Name);
+            double result = rc.CurrentBoatSpeed(rc, 1, 0, 1, rBoats[0]);
+            Console.WriteLine(result);
+            Assert.IsTrue(result > 0);
+        }
+        [TestMethod]
+        public void NewLegDirectionTest()
+        {
+            //boat changes direction whenever it goes into a turn
+            RaceCourse rc = new RaceCourse();
+            int newDirection = rc.NewLegDirection(4);
+            Assert.AreEqual(1, newDirection,"direction should change from 4 to 1");
         }
     }
 }

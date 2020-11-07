@@ -11,8 +11,9 @@ namespace BoatRace
         {
 
         }
-        public int SelectionMenu(List<string> itemsToChooseFrom)
+        public int SelectionMenu(List<string> itemsToChooseFrom, string prompt)
         {
+            Console.WriteLine(prompt);
             int selection;
             do
             {

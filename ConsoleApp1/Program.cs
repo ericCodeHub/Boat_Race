@@ -18,10 +18,10 @@ namespace BoatRace
         {
             Console.WriteLine("Welcome to Boat Racing");
 
-            //user selects a boat
-            Console.WriteLine("\nChoose boats to race:");// + ListBoatChoices())
-
-            string boatChoice = boatChoices[makeSelection.SelectionMenu(boatChoices) - 1];
+            //user selects a boat type to race
+            Console.WriteLine();
+            string openingPrompt = "\nChoose boats to race:";
+            string boatChoice = boatChoices[makeSelection.SelectionMenu(boatChoices,openingPrompt) - 1];
             //determines boat selected by calling menu_cli
             //sends boatchoices to the menu and returns the index for the boat selected
             //string is completed here to set which type of boat is being raced
@@ -56,10 +56,10 @@ namespace BoatRace
             //******************select race course***************************//
             //choose a course
             RaceCourse rc = new RaceCourse();
-            Console.WriteLine("Choose a race course");
+            string raceCourseSelectionPrompt="Choose a race course";
 
             //currently courseSelected is only needed to determine the number of legs and the design of each leg(curve or straight)
-            string courseSelected = rc.RaceCourseChoices()[makeSelection.SelectionMenu(rc.RaceCourseChoices()) - 1];
+            string courseSelected = rc.RaceCourseChoices()[makeSelection.SelectionMenu(rc.RaceCourseChoices(),raceCourseSelectionPrompt) - 1];
 
             //display the course selected
             Console.WriteLine("course selected: " + courseSelected);
@@ -80,8 +80,8 @@ namespace BoatRace
             boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 0, 1000);
             //********************race simulator************************************//
             //needs to call the same process only no results are printed out except the number of wins each boat has at the end as a percentage
-            Console.WriteLine("\nBased on the results of the simulation, which boat do you think will win the race?");
-            int boatToWin = makeSelection.SelectionMenu(boatRaceCourse.RaceSimResults.Keys.ToList());
+            string simRacePrompt="\nBased on the results of the simulation, which boat do you think will win the race?";
+            int boatToWin = makeSelection.SelectionMenu(boatRaceCourse.RaceSimResults.Keys.ToList(),simRacePrompt);
             Console.WriteLine("Ok, " + boatsForRace[boatToWin - 1].Name + " it is.  Let's see if you're right." );
             boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 1, 1);
             if (boatRaceCourse.RaceWinner == boatsForRace[boatToWin - 1].Name)

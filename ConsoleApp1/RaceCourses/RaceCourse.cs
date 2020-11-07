@@ -251,7 +251,7 @@ namespace BoatRace
                 WaterCurrentReport = boatDirection + "Boats are moving with the current";
 
             }
-            else if ((WaterCurrentDirection - boatDirection) == 1 ||Math.Abs(WaterCurrent - boatDirection) == 3) 
+            else if ((WaterCurrentDirection - boatDirection) == 1 ||Math.Abs(WaterCurrentDirection - boatDirection) == 3) 
             {
                 //return (WindDirection + " " + StartDirection + " Boat is angled into the wind in leg 1");
                 WaterCurrentReport = boatDirection + "Boats are angled into the current.";
@@ -274,7 +274,7 @@ namespace BoatRace
                 WaterCurrentReport = "No condition calculated";
 
             }
-            //Console.WriteLine(CurrentReport);
+            //Console.WriteLine(WaterCurrentReport);
             return waterCurrentEffect;
         }
         public void RaceSim(List<Boat> boatsForRace, RaceCourse boatRaceCourse, string courseSelected, int simOrActual, int numOfRacesToSim)
@@ -306,7 +306,7 @@ namespace BoatRace
                     foreach (Boat boat in boatsForRace)
                     {
                         
-                        double currentBoatSpeed = CurrentBoatSpeed(boatRaceCourse, boatDirection, courseLegTypes, i, boat);
+                        double currentBoatSpeed = CurrentBoatSpeed(boatRaceCourse, boatDirection, courseLegTypes[i], i, boat);
                         //time formula for distance traveled in a straight is 100 / currentBoatSpeed
                         //time formula for distance traveled in a curve is 25 / (currentBoatSpeed with adjustment for turn)
 
@@ -384,10 +384,11 @@ namespace BoatRace
             return Math.Round((legDistance / currentBoatSpeed) / 10, 2);
         }
 
-        double CurrentBoatSpeed(RaceCourse boatRaceCourse, int boatDirection, List<int> courseLegTypes, int i, Boat boat)
+        public double CurrentBoatSpeed(RaceCourse boatRaceCourse, int boatDirection, int courseLegType, int i, Boat boat)
         {
-            double currentBoatSpeed = Math.Round(boat.AverageSpeedInKnots * (boat.IncreaseBoatSpeed(boat.EngineHorsepower) +
-                                        boatRaceCourse.CourseLeg(courseLegTypes[i], boatDirection, i + 1)), 2);
+            double currentBoatSpeed = boat.AverageSpeedInKnots;
+            currentBoatSpeed += Math.Round(boat.AverageSpeedInKnots * (boat.IncreaseBoatSpeed(boat.EngineHorsepower) +
+                                        boatRaceCourse.CourseLeg(courseLegType, boatDirection, i + 1)), 2);//CourseLeg should be refactored using only necessary varialbles
             currentBoatSpeed += (currentBoatSpeed * boat.CaptainBonus);//add captain bonus
             currentBoatSpeed += boat.SpeedAdjustment(currentBoatSpeed, boat.EngineHorsepower);
             return currentBoatSpeed;
