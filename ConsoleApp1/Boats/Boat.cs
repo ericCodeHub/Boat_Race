@@ -96,7 +96,7 @@ namespace BoatRace
         {
             Random num = new Random();
             double increase = 0;
-            double posOrNeg = 0;
+            int posOrNeg = 0;
             
 
             if (hpOfEngine <= 10)
@@ -106,28 +106,33 @@ namespace BoatRace
             else if (hpOfEngine > 10 && hpOfEngine <= 20)
             {
                 posOrNeg = num.Next(10);//determines if "increase" will be positive or negative(decrease)
-                increase = (num.NextDouble() * .152) * posOrNeg < 8 ? 1 :-1;                
+                increase = (num.NextDouble() * .152);
+                increase*= posOrNeg < 8 ? 1 :-1;                
                 //.15 is max deviation
             }
             else if (hpOfEngine > 20 && hpOfEngine <= 30)
             {
                 posOrNeg = num.Next(10);//determines if "increase" will be positive or negative(decrease)
-                increase = (num.NextDouble() * .253) * posOrNeg < 8 ? 1 : -1;
+                increase = (num.NextDouble() * .253);
+                increase*=posOrNeg < 8 ? 1 : -1;
                 //.25 is max deviation
             }
             else if (hpOfEngine > 30 && hpOfEngine <= 40)
             {
                 posOrNeg = num.Next(10);//determines if "increase" will be positive or negative(decrease)
-                increase = (num.NextDouble() * .353) * posOrNeg < 7 ? 1 : -1;
+                increase = (num.NextDouble() * .353);
+                increase*= posOrNeg < 7 ? 1 : -1;
                 //.35 is max deviation
             }
             else if (hpOfEngine > 40 && hpOfEngine <= 50)
             {
                 posOrNeg = num.Next(10);//determines if "increase" will be positive or negative(decrease)
-                increase = (num.NextDouble() * .505) * posOrNeg < 6 ? 1 : -1;
+                increase = (num.NextDouble() * .505);
+                increase*= posOrNeg < 6 ? 1 : -1;
                 //.50 is max deviation
             }
-            return increase;
+            
+            return Math.Round(increase,2);
         }
 
         //private int IncreaseSpeed();

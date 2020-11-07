@@ -1,4 +1,4 @@
-﻿using BoatRace.RaceCourses;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BoatRace
 {
-    public class RaceCourse : IRaceCourse
+    public class RaceCourse
     {
         /*
          * RaceCourse currently is a parent class for the different race courses
@@ -174,10 +174,7 @@ namespace BoatRace
              * A curved leg can take longer to navigate base on how wide a turn is made
              * Boat speed is affected by hp, captain, and speed heading into the turn
              * currently going with max impact of 40% based on captain rating and speed going into turn
-             * 
-             * all boat's speeds should be altered somewhat, say 10%; possible formula:
-             * captains < 5, 20% to 40%; >5 10% to 20%
-             * speed
+             
             */
             Random num = new Random();
             double curveEffect;

@@ -10,30 +10,7 @@ namespace BoatRaceExample.Tests
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
-        public void FirstLegTriangleTestForZeroWind()
-        {
-                      
-            TriangleCourse rc = new TriangleCourse();
-            rc.Wind = 0; 
-            rc.WindDirection = 1;
-            rc.StartDirection = 2;
-            
-            //Console.WriteLine(rc.StartDirection);
-            Assert.AreEqual("Boat is not affected by wind", rc.FirstLeg());                     
-
-        }
-
-        [TestMethod]
-        public void FirstLegTriangleTestWindEqualsStart()
-        {
-            TriangleCourse rcourse = new TriangleCourse();
-            rcourse.Wind = 3;
-            rcourse.WindDirection = 2;
-            rcourse.StartDirection = 2;
-            //Console.WriteLine(rc.StartDirection);
-            Assert.AreEqual(rcourse.WindDirection + " " + rcourse.StartDirection + " Wind helps movement in first leg of race", rcourse.FirstLeg());
-        }
+       
         [TestMethod]
         public void WindConditionTest_NoWind()
         {
@@ -56,19 +33,20 @@ namespace BoatRaceExample.Tests
         [TestMethod]
         public void CurrentConditionTest()
         {
-            TriangleCourse rc = new TriangleCourse();
+            RaceCourse rc = new RaceCourse();
             rc.WaterCurrent = 3;
             rc.WaterCurrentDirection = 1;
-            Assert.AreEqual(-0.1, rc.WaterCurrentCondition(2));               
+            Assert.AreEqual(0.1, rc.WaterCurrentCondition(2));               
 
         }
         [TestMethod]
         public void BoatSpeedTest()
         {
             SpeedBoat bSpeed = new SpeedBoat(1,"gas",30,true);
-            double expected = bSpeed.AverageSpeedInKnots + (bSpeed.AverageSpeedInKnots * bSpeed.IncreaseBoatSpeed(25));
-            double actual = bSpeed.BoatSpeed(bSpeed.AverageSpeedInKnots, 25);
-            Assert.AreEqual(expected, actual);
+            double expected = bSpeed.BoatSpeed(bSpeed.AverageSpeedInKnots, 25);
+            //double actual = bSpeed.BoatSpeed(bSpeed.AverageSpeedInKnots, 45);
+            Assert.IsTrue(expected < .25);
+            
                 
 
         }
