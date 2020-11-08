@@ -16,8 +16,16 @@ namespace BoatRace
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Boat Racing");
-
+            Console.WriteLine("Welcome to Boat Racing!");
+            string userWantsToPlay = "y";
+            while (userWantsToPlay == "y")
+            {
+                userWantsToPlay = RunTheGame(userWantsToPlay);
+            }
+            Console.WriteLine("Okay, thanks for playing!");
+        }
+        static string RunTheGame(string userWantsToPlay)
+        { 
             //user selects a boat type to race
             Console.WriteLine();
             string openingPrompt = "\nChoose boats to race:";
@@ -93,6 +101,14 @@ namespace BoatRace
                 Console.WriteLine("\nSorry, your boat, " + boatsForRace[boatToWin - 1].Name + ", lost.");
             }
 
+            do
+            {
+                Console.Write("Play Again? (y/n)");
+                userWantsToPlay = Console.ReadLine().ToLower();
+                
+            } 
+            while (userWantsToPlay != "y" && userWantsToPlay != "n");
+            return userWantsToPlay;
         } 
         
 

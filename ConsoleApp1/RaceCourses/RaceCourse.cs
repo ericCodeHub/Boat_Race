@@ -345,7 +345,13 @@ namespace BoatRace
                     {
                         Console.WriteLine("\nPositions after Leg " + (i + 1) + ": 1) " + boatPositions[0] + ", 2) " + boatPositions[1] + ", 3) " +
                         boatPositions[2] + ", 4) " + boatPositions[3]);
+                        if (i < courseLegTypes.Count - 1)
+                        {
+                            Console.Write("\nPress any key to see the results of the next leg.\n");
+                            Console.ReadKey();
+                        }
                     }
+                    
                     if (i == courseLegTypes.Count - 1)
                     {
                         boatRaceCourse.RaceSimResults[boatPositions[0]] += 1;
