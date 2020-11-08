@@ -1,25 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj": {}
+    "C:\\Users\\Student\\workspace\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj": {
+    "C:\\Users\\Student\\workspace\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\Student\\workspace\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj",
         "projectName": "BoatRaceExample.Tests",
-        "projectPath": "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj",
-        "packagesPath": "C:\\Users\\ericm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\BoatRaceExample.Tests\\obj\\",
+        "projectPath": "C:\\Users\\Student\\workspace\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj",
+        "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Student\\workspace\\Boat_Race\\BoatRaceExample.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\ericm\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Student\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -31,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj": {
-                "projectPath": "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj"
+              "C:\\Users\\Student\\workspace\\Boat_Race\\ConsoleApp1\\BoatRace.csproj": {
+                "projectPath": "C:\\Users\\Student\\workspace\\Boat_Race\\ConsoleApp1\\BoatRace.csproj"
               }
             }
           }
@@ -78,26 +77,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj": {
+    "C:\\Users\\Student\\workspace\\Boat_Race\\ConsoleApp1\\BoatRace.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj",
+        "projectUniqueName": "C:\\Users\\Student\\workspace\\Boat_Race\\ConsoleApp1\\BoatRace.csproj",
         "projectName": "BoatRace",
-        "projectPath": "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj",
-        "packagesPath": "C:\\Users\\ericm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\obj\\",
+        "projectPath": "C:\\Users\\Student\\workspace\\Boat_Race\\ConsoleApp1\\BoatRace.csproj",
+        "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Student\\workspace\\Boat_Race\\ConsoleApp1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\ericm\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Student\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -134,7 +132,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

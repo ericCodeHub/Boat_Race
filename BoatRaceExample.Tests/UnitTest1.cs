@@ -130,5 +130,11 @@ namespace BoatRaceExample.Tests
             int newDirection = rc.NewLegDirection(4);
             Assert.AreEqual(1, newDirection,"direction should change from 4 to 1");
         }
+        [TestMethod]
+        public void OddsMakingTest()
+        {
+            RaceCourse rc = new RaceCourse();
+            Assert.AreEqual(4, rc.OddsMakingForBoat(22));
+        }
     }
 }

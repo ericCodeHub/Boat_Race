@@ -58,7 +58,7 @@ namespace BoatRace
         public string RaceWinner { get; set; }
         public string WindReport { get; set; }
         public string WaterCurrentReport { get; set; }
-        public string waterChopTextCondition
+        public string WaterChopTextCondition
         {
             get
             {
@@ -319,7 +319,7 @@ namespace BoatRace
                             //******condition reports
 
                             //header for leg data
-                            Console.WriteLine("\nName\t\tHP\tCapt.\tLg Sp\tLg T\tTot T\tPlace\n");
+                            Console.WriteLine("\nName\t\tHP\tCapt.\tLg Sp\tLg T\tTot T");//\tPlace\n");
                         }
                         x++;
                         //leg results
@@ -328,12 +328,13 @@ namespace BoatRace
                         boat.BoatTimeForDistance += thisLegTime;
 
                         //*******print out results for leg*********************************//
+                        //this should be refactored I think; then tests could be run
                         if (simOrActual == 1)//if not a sim
                         {
                             Console.WriteLine(boat.Name + "\t" + boat.EngineHorsepower +
                                 "\t" + boat.Captain + "\t" + Math.Round(currentBoatSpeed, 2) +
-                                "\t" + thisLegTime + "\t" + Math.Round(boat.BoatTimeForDistance / 10, 2) +
-                                "\t" + boat.AverageSpeedInKnots);
+                                "\t" + thisLegTime + "\t" + Math.Round(boat.BoatTimeForDistance / 10, 2));
+                                //"\t" + boat.AverageSpeedInKnots);
                         }
 
                         cumulativeLegTimesOfEachBoat.Add(boat.BoatTimeForDistance);
@@ -348,8 +349,8 @@ namespace BoatRace
                         boatPositions[2] + ", 4) " + boatPositions[3]);
                         if (i < courseLegTypes.Count - 1)
                         {
-                            Console.Write("\nPress any key to see the results of the next leg.\n");
-                            Console.ReadKey();
+                            //Console.Write("\nPress any key to see the results of the next leg.\n");
+                            //Console.ReadKey();
                         }
                     }
                     
@@ -372,7 +373,7 @@ namespace BoatRace
                 foreach (KeyValuePair<string, int> result in boatRaceCourse.RaceSimResults)
                 {
                     double percentageOfVictories= Math.Round(((double)result.Value / numOfRacesToSim) * 100, 0);
-                    Console.WriteLine("\t" + result.Key + ": " + "\t" + result.Value + "\t" + percentageOfVictories + "%");
+                    Console.WriteLine("\t" + result.Key + ": " + "\t" + result.Value + "\t" + percentageOfVictories + "%" + "\t" + OddsMakingForBoat(percentageOfVictories) + " to 1");
                 }
             }
         }
@@ -384,7 +385,7 @@ namespace BoatRace
                 boat.BoatTimeForDistance = 0;
             }
         }
-        private static int OddsMakingForBoat(double percentageOfVictories)
+        public int OddsMakingForBoat(double percentageOfVictories)
         {
             /*
              * if percent >= 50 then odds are 1:1; return 1
@@ -393,7 +394,7 @@ namespace BoatRace
              * if percent >=20 then odds are 4 (to 1); return 4
              * if percent >=16 then odds are 5 (to 1); return 5
              */
-            int oddsNumber = 0;
+            int oddsNumber = 20;
             if (percentageOfVictories>=50)
             {                
                 oddsNumber = 1;                
@@ -409,6 +410,21 @@ namespace BoatRace
             }else if (percentageOfVictories >= 16)
             {
                 oddsNumber = 5;
+            }else if (percentageOfVictories >= 14)
+            {
+                oddsNumber = 6;
+            }
+            else if (percentageOfVictories >= 12)
+            {
+                oddsNumber = 7;
+            }
+            else if (percentageOfVictories >= 11)
+            {
+                oddsNumber = 8;
+            }
+            else if (percentageOfVictories >= 10)
+            {
+                oddsNumber = 9;
             }
             return oddsNumber;
         }

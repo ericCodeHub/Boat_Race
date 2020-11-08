@@ -20,11 +20,11 @@ namespace BoatRace
             string userWantsToPlay = "y";
             while (userWantsToPlay == "y")
             {
-                userWantsToPlay = RunTheGame(userWantsToPlay);
+                userWantsToPlay = RunTheRace(userWantsToPlay);
             }
             Console.WriteLine("Okay, thanks for playing!");
         }
-        static string RunTheGame(string userWantsToPlay)
+        static string RunTheRace(string userWantsToPlay)
         { 
             //user selects a boat type to race
             Console.WriteLine();
@@ -85,20 +85,29 @@ namespace BoatRace
             {
                 boatRaceCourse.RaceSimResults.Add(boat.Name, 0);
             }
-            boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 0, 1000);
+
             //********************race simulator************************************//
             //needs to call the same process only no results are printed out except the number of wins each boat has at the end as a percentage
-            string simRacePrompt="\nBased on the results of the simulation, which boat do you think will win the race?";
+            boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 0, 1000);
+
+            //ask user who they think will win the race--use the menu_cli object
+            string simRacePrompt="\nBased on the results of the simulation, which boat do you think will win the race?";            
             int boatToWin = makeSelection.SelectionMenu(boatRaceCourse.RaceSimResults.Keys.ToList(),simRacePrompt);
+
+            //handle response from user
             Console.WriteLine("Ok, " + boatsForRace[boatToWin - 1].Name + " it is.  Let's see if you're right." );
+            
+            //initiate race user picked a winner for
             boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 1, 1);
+
+            //check to see if user's boat won
             if (boatRaceCourse.RaceWinner == boatsForRace[boatToWin - 1].Name)
             {
                 Console.WriteLine("\nCongratulations! You picked the winner!");
             }
             else
             {
-                Console.WriteLine("\nSorry, your boat, " + boatsForRace[boatToWin - 1].Name + ", lost.");
+                Console.WriteLine("\nSorry, the boat you chose, " + boatsForRace[boatToWin - 1].Name + ", lost.");
             }
 
             do
@@ -109,6 +118,8 @@ namespace BoatRace
             } 
             while (userWantsToPlay != "y" && userWantsToPlay != "n");
             return userWantsToPlay;
+
+            //if user plays a couple games and wins then initiate gambler object and give user a chance to wager 
         } 
         
 
@@ -117,7 +128,7 @@ namespace BoatRace
             Console.WriteLine("\nCurrent Conditions on the water");
             Console.WriteLine("Current: " + boatRaceCourse.WaterCurrent + "\nChop: " + boatRaceCourse.WaterChop
                 + "\nWind: " + boatRaceCourse.Wind + "\nWind Direction: " + boatRaceCourse.WindDirection +
-                "\nWater Chop: " + boatRaceCourse.waterChopTextCondition + "\nWater Current Direction: " +
+                "\nWater Chop: " + boatRaceCourse.WaterChopTextCondition + "\nWater Current Direction: " +
                 boatRaceCourse.WaterCurrentDirection + "\nStarting Direction: " + boatRaceCourse.StartDirection);
         }
 
