@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace BoatRace
@@ -370,7 +371,8 @@ namespace BoatRace
                 Console.WriteLine("\nHere are the results based on a simulation of " + numOfRacesToSim + " races:");
                 foreach (KeyValuePair<string, int> result in boatRaceCourse.RaceSimResults)
                 {
-                    Console.WriteLine("\t" + result.Key + ": " + "\t" + result.Value + "\t" + Math.Round(((double)result.Value / numOfRacesToSim) * 100, 0) + "%");
+                    double percentageOfVictories= Math.Round(((double)result.Value / numOfRacesToSim) * 100, 0);
+                    Console.WriteLine("\t" + result.Key + ": " + "\t" + result.Value + "\t" + percentageOfVictories + "%");
                 }
             }
         }
@@ -381,6 +383,34 @@ namespace BoatRace
             {
                 boat.BoatTimeForDistance = 0;
             }
+        }
+        private static int OddsMakingForBoat(double percentageOfVictories)
+        {
+            /*
+             * if percent >= 50 then odds are 1:1; return 1
+             * if percent >= 33 then odds are 2:1; return 2
+             * if precent >=25 then odds are 3; etc.
+             * if percent >=20 then odds are 4 (to 1); return 4
+             * if percent >=16 then odds are 5 (to 1); return 5
+             */
+            int oddsNumber = 0;
+            if (percentageOfVictories>=50)
+            {                
+                oddsNumber = 1;                
+            }else if (percentageOfVictories >= 33)
+            {
+                oddsNumber = 2;
+            }else if (percentageOfVictories >= 25)
+            {
+                oddsNumber = 3;
+            }else if (percentageOfVictories >= 20)
+            {
+                oddsNumber = 4;
+            }else if (percentageOfVictories >= 16)
+            {
+                oddsNumber = 5;
+            }
+            return oddsNumber;
         }
 
         double ThisLegTime(Boat boat, RaceCourse boatRaceCourse, double currentBoatSpeed, int courseLegType)
