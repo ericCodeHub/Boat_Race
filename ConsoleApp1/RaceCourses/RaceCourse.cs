@@ -37,6 +37,7 @@ namespace BoatRace
         public int WaterChop { get; set; }
         public int Wind { get; set; }
         public int WindDirection { get; set; }
+        public int UserWins { get; set; }
 
         /******doubles*********/
         public double StraightDistanceOfLeg = 10000;

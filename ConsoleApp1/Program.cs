@@ -76,6 +76,9 @@ namespace BoatRace
             RaceCourse boatRaceCourse = rc;//new RaceCourse(courseSelected);//why create a new object?  Try using rc through whole race cycle
             boatRaceCourse.RaceCourseConditions();//sets conditions for course displayed below
 
+            //create player--needed to assign player properties
+            Gambler player = new Gambler();
+
             //****************display current conditions on the water*******************
             DisplayConditionsOnTheWater(boatRaceCourse);
 
@@ -104,6 +107,24 @@ namespace BoatRace
             if (boatRaceCourse.RaceWinner == boatsForRace[boatToWin - 1].Name)
             {
                 Console.WriteLine("\nCongratulations! You picked the winner!");
+                Gambler.StarterWins++;
+                Console.WriteLine("you have " + Gambler.StarterWins + " wins.");
+                if (Gambler.StarterWins == 2) 
+                {
+                    Gambler.WantToGamble(makeSelection);
+                    Gambler.StarterWins = 0;
+                };
+                /*
+                 * rc.UserWins should always reset to 0 after hitting 2
+                 * user gets asked to play after every two wins
+                 * 
+                 * user chooses to play for money
+                 * 
+                 * if yes, create gambler object
+                 * give user $500
+                 * need variable to show user is playing for money
+                 * need method that calculates winnings if user playing
+                 */
             }
             else
             {
