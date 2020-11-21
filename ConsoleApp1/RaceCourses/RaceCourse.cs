@@ -38,6 +38,7 @@ namespace BoatRace
         public int Wind { get; set; }
         public int WindDirection { get; set; }
         public int UserWins { get; set; }
+        public int OddsToWin { get; set; }
 
         /******doubles*********/
         public double StraightDistanceOfLeg = 10000;
@@ -395,39 +396,39 @@ namespace BoatRace
              * if percent >=20 then odds are 4 (to 1); return 4
              * if percent >=16 then odds are 5 (to 1); return 5
              */
-            int oddsNumber = 20;
+            int OddsToWin = 20;
             if (percentageOfVictories>=50)
             {                
-                oddsNumber = 1;                
+                OddsToWin = 1;                
             }else if (percentageOfVictories >= 33)
             {
-                oddsNumber = 2;
+                OddsToWin = 2;
             }else if (percentageOfVictories >= 25)
             {
-                oddsNumber = 3;
+                OddsToWin = 3;
             }else if (percentageOfVictories >= 20)
             {
-                oddsNumber = 4;
+                OddsToWin = 4;
             }else if (percentageOfVictories >= 16)
             {
-                oddsNumber = 5;
+                OddsToWin = 5;
             }else if (percentageOfVictories >= 14)
             {
-                oddsNumber = 6;
+                OddsToWin = 6;
             }
             else if (percentageOfVictories >= 12)
             {
-                oddsNumber = 7;
+                OddsToWin = 7;
             }
             else if (percentageOfVictories >= 11)
             {
-                oddsNumber = 8;
+                OddsToWin = 8;
             }
             else if (percentageOfVictories >= 10)
             {
-                oddsNumber = 9;
+                OddsToWin = 9;
             }
-            return oddsNumber;
+            return OddsToWin;
         }
 
         double ThisLegTime(Boat boat, RaceCourse boatRaceCourse, double currentBoatSpeed, int courseLegType)

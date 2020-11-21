@@ -17,19 +17,21 @@ namespace BoatRace
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Boat Racing!");
+            Gambler player = new Gambler();//in case user decides to wager money later
+
             string userWantsToPlay = "y";
             while (userWantsToPlay == "y")
             {
-                userWantsToPlay = RunTheRace(userWantsToPlay);
+                userWantsToPlay = RunTheRace(userWantsToPlay, player);
             }
             Console.WriteLine("Okay, thanks for playing!");
         }
-        static string RunTheRace(string userWantsToPlay)
-        { 
+        static string RunTheRace(string userWantsToPlay, Gambler player)
+        {
             //user selects a boat type to race
             Console.WriteLine();
             string openingPrompt = "\nChoose boats to race:";
-            string boatChoice = boatChoices[makeSelection.SelectionMenu(boatChoices,openingPrompt) - 1];
+            string boatChoice = boatChoices[makeSelection.SelectionMenu(boatChoices, openingPrompt) - 1];
             //determines boat selected by calling menu_cli
             //sends boatchoices to the menu and returns the index for the boat selected
             //string is completed here to set which type of boat is being raced
@@ -64,10 +66,10 @@ namespace BoatRace
             //******************select race course***************************//
             //choose a course
             RaceCourse rc = new RaceCourse();
-            string raceCourseSelectionPrompt="Choose a race course";
+            string raceCourseSelectionPrompt = "Choose a race course";
 
             //currently courseSelected is only needed to determine the number of legs and the design of each leg(curve or straight)
-            string courseSelected = rc.RaceCourseChoices()[makeSelection.SelectionMenu(rc.RaceCourseChoices(),raceCourseSelectionPrompt) - 1];
+            string courseSelected = rc.RaceCourseChoices()[makeSelection.SelectionMenu(rc.RaceCourseChoices(), raceCourseSelectionPrompt) - 1];
 
             //display the course selected
             Console.WriteLine("course selected: " + courseSelected);
@@ -75,9 +77,6 @@ namespace BoatRace
             //create race course--changed rc to boatRaceCourse here to read code easier
             RaceCourse boatRaceCourse = rc;//new RaceCourse(courseSelected);//why create a new object?  Try using rc through whole race cycle
             boatRaceCourse.RaceCourseConditions();//sets conditions for course displayed below
-
-            //create player--needed to assign player properties
-            Gambler player = new Gambler();
 
             //****************display current conditions on the water*******************
             DisplayConditionsOnTheWater(boatRaceCourse);
@@ -89,59 +88,84 @@ namespace BoatRace
                 boatRaceCourse.RaceSimResults.Add(boat.Name, 0);
             }
 
-            //********************race simulator************************************//
-            //needs to call the same process only no results are printed out except the number of wins each boat has at the end as a percentage
+            //******************** race simulator ************************************//
+            //needs to call the same process only no results are printed out except the 
+            //number of wins each boat has at the end as a percentage
             boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 0, 1000);
 
             //ask user who they think will win the race--use the menu_cli object
-            string simRacePrompt="\nBased on the results of the simulation, which boat do you think will win the race?";            
-            int boatToWin = makeSelection.SelectionMenu(boatRaceCourse.RaceSimResults.Keys.ToList(),simRacePrompt);
+            //if user is gambling, they will need to place their wager here.
+            if (player.GambleOnBoats == "y")
+            {
+                player.PlaceWager();
+
+            }
+            string simRacePrompt = "\nBased on the results of the simulation, which boat do you think will win the race?";
+            int boatToWin = makeSelection.SelectionMenu(boatRaceCourse.RaceSimResults.Keys.ToList(), simRacePrompt);
 
             //handle response from user
-            Console.WriteLine("Ok, " + boatsForRace[boatToWin - 1].Name + " it is.  Let's see if you're right." );
-            
-            //initiate race user picked a winner for
+            Console.WriteLine("Ok, " + boatsForRace[boatToWin - 1].Name + " it is.  Let's see if you're right.");
+
+            //initiate race that user picked a winner for
             boatRaceCourse.RaceSim(boatsForRace, boatRaceCourse, courseSelected, 1, 1);
 
+            //******************** handle race results *****************************//
+            if (player.GambleOnBoats == "y")
+            {
+                CheckWinnings(boatsForRace, boatRaceCourse, boatToWin, player);
+            }
+            else
+            {
+                CheckRaceResultsForFun(boatsForRace, boatRaceCourse, boatToWin, player);
+            }
+            
+            do
+            {
+                Console.Write("Play Again? (y/n)");
+                userWantsToPlay = Console.ReadLine().ToLower();
+
+            }
+            while (userWantsToPlay != "y" && userWantsToPlay != "n");
+            return userWantsToPlay;
+            
+        }
+
+        private static void CheckWinnings(List<Boat> boatsForRace, RaceCourse boatRaceCourse, int boatToWin, Gambler player)
+        {
+            Console.WriteLine("\nYou have elected to wager on the boats.");
+            player.Payout = player.Wager * boatRaceCourse.OddsToWin;
+            player.Winnings += player.Payout;
+            Console.WriteLine($"\nCongratulations! You picked the winner!\n" +
+                                "Your wager of {player.Wager} has won you " +
+                                "{player.Payout}!\nYou now have {player.Winnings}" +
+                                " to wager in the next race.");
+            
+        }
+        private static void CheckRaceResultsForFun(List<Boat> boatsForRace, RaceCourse boatRaceCourse, int boatToWin, Gambler player)
+        {
             //check to see if user's boat won
             if (boatRaceCourse.RaceWinner == boatsForRace[boatToWin - 1].Name)
             {
                 Console.WriteLine("\nCongratulations! You picked the winner!");
                 Gambler.StarterWins++;
                 Console.WriteLine("you have " + Gambler.StarterWins + " wins.");
-                if (Gambler.StarterWins == 2) 
+                if (Gambler.StarterWins == 2)
                 {
-                    Gambler.WantToGamble(makeSelection);
+                    player.GambleOnBoats = makeSelection.OfferChanceToWager();
+                    if (player.GambleOnBoats == "y")
+                    {
+                        player.Winnings = 500;
+                        Console.WriteLine($"You have $ {player.Winnings} to wager on the next race.");
+                    }
                     Gambler.StarterWins = 0;
                 };
-                /*
-                 * rc.UserWins should always reset to 0 after hitting 2
-                 * user gets asked to play after every two wins
-                 * 
-                 * user chooses to play for money
-                 * 
-                 * if yes, create gambler object
-                 * give user $500
-                 * need variable to show user is playing for money
-                 * need method that calculates winnings if user playing
-                 */
+
             }
             else
             {
                 Console.WriteLine("\nSorry, the boat you chose, " + boatsForRace[boatToWin - 1].Name + ", lost.");
             }
-
-            do
-            {
-                Console.Write("Play Again? (y/n)");
-                userWantsToPlay = Console.ReadLine().ToLower();
-                
-            } 
-            while (userWantsToPlay != "y" && userWantsToPlay != "n");
-            return userWantsToPlay;
-
-            //if user plays a couple games and wins then initiate gambler object and give user a chance to wager 
-        } 
+        }
         
 
         private static void DisplayConditionsOnTheWater(RaceCourse boatRaceCourse)

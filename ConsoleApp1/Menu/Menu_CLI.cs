@@ -47,7 +47,7 @@ namespace BoatRace
         {
 
             Console.Write("Hey, you are pretty good at this.  Want to wager some money? (y/n) ");
-            return Console.ReadLine();
+            return Console.ReadLine().ToLower();
         }
     }
 }
