@@ -13,15 +13,25 @@ namespace BoatRace
         }
         public int SelectionMenu(List<string> itemsToChooseFrom, string prompt)
         {
-            Console.WriteLine(prompt);
-            int selection;
+            
+            int selection = itemsToChooseFrom.Count + 1;
             do
             {
-                Console.WriteLine(ItemChoiceString(itemsToChooseFrom));
-                selection = Convert.ToInt32(Console.ReadLine());
+                    
+                try
+                {
+                    Console.WriteLine(prompt);
+                    Console.WriteLine(ItemChoiceString(itemsToChooseFrom)); 
+                    selection = Convert.ToInt32(Console.ReadLine());
+                }
+                catch
+                {
+                        
+                }
+                    
             }
-            while (selection > itemsToChooseFrom.Count);
-
+            while (selection > itemsToChooseFrom.Count);            
+           
             return selection;
         }
 

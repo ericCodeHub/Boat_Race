@@ -38,7 +38,7 @@ namespace BoatRace
         public int Wind { get; set; }
         public int WindDirection { get; set; }
         public int UserWins { get; set; }
-        public int OddsToWin { get; set; }
+        
 
         /******doubles*********/
         public double StraightDistanceOfLeg = 10000;
@@ -90,6 +90,7 @@ namespace BoatRace
         public List<double> WaterCurrentIndex = new List<double> { 0, .05, .10, .20, .30 };
         public List<double> WaterChopIndex = new List<double> { 0, 0, .05, .10, .20 };
         public List<double> WindIndex = new List<double> { 0, 0, .05, .10, .20 };
+        public List<string> NamesOfBoatsInRace = new List<string>();
 
         /*****Dictionaries*****/
         //this dictionary holds integer values in a list that represent the two different possible legs 
@@ -101,7 +102,7 @@ namespace BoatRace
             {"Triangle", new List<int>(){0, 1, 0, 1, 0} }
 
         };
-        public Dictionary<string, int> RaceSimResults = new Dictionary<string, int>();
+        public Dictionary<Boat, int> RaceSimResults = new Dictionary<Boat, int>();
 
         /*****Class Constructors*****/
         //additional notes for this class are below the constructors
@@ -342,17 +343,16 @@ namespace BoatRace
                         cumulativeLegTimesOfEachBoat.Add(boat.BoatTimeForDistance);
                     }//end of leg
 
-                    List<string> boatPositions = new List<string>();
+                    List<Boat> boatPositions = new List<Boat>();
 
                     boatPositions.AddRange(CalculateBoatPositionsAfterEachLeg(cumulativeLegTimesOfEachBoat, boatsForRace, boatsForRace.Count));
                     if (simOrActual == 1)
                     {
-                        Console.WriteLine("\nPositions after Leg " + (i + 1) + ": 1) " + boatPositions[0] + ", 2) " + boatPositions[1] + ", 3) " +
-                        boatPositions[2] + ", 4) " + boatPositions[3]);
+                        Console.WriteLine("\nPositions after Leg " + (i + 1) + ": 1) " + boatPositions[0].Name + ", 2) " + boatPositions[1].Name + ", 3) " +
+                        boatPositions[2].Name + ", 4) " + boatPositions[3].Name);
                         if (i < courseLegTypes.Count - 1)
                         {
-                            //Console.Write("\nPress any key to see the results of the next leg.\n");
-                            //Console.ReadKey();
+                            
                         }
                     }
                     
@@ -361,7 +361,7 @@ namespace BoatRace
                         boatRaceCourse.RaceSimResults[boatPositions[0]] += 1;
                         if (simOrActual == 1)
                         {
-                            RaceWinner = boatPositions[0];
+                            RaceWinner = boatPositions[0].Name;
                         }
                     }
 
@@ -372,10 +372,11 @@ namespace BoatRace
             if (simOrActual == 0)
             {
                 Console.WriteLine("\nHere are the results based on a simulation of " + numOfRacesToSim + " races:");
-                foreach (KeyValuePair<string, int> result in boatRaceCourse.RaceSimResults)
+                foreach (KeyValuePair<Boat, int> result in boatRaceCourse.RaceSimResults)
                 {
                     double percentageOfVictories= Math.Round(((double)result.Value / numOfRacesToSim) * 100, 0);
-                    Console.WriteLine("\t" + result.Key + ": " + "\t" + result.Value + "\t" + percentageOfVictories + "%" + "\t" + OddsMakingForBoat(percentageOfVictories) + " to 1");
+                    result.Key.OddsToWin = result.Key.OddsMakingForBoat(percentageOfVictories);
+                    Console.WriteLine("\t" + result.Key.Name + ": " + "\t" + result.Value + "\t" + percentageOfVictories + "%" + "\t" + result.Key.OddsToWin + " to 1");
                 }
             }
         }
@@ -387,49 +388,7 @@ namespace BoatRace
                 boat.BoatTimeForDistance = 0;
             }
         }
-        public int OddsMakingForBoat(double percentageOfVictories)
-        {
-            /*
-             * if percent >= 50 then odds are 1:1; return 1
-             * if percent >= 33 then odds are 2:1; return 2
-             * if precent >=25 then odds are 3; etc.
-             * if percent >=20 then odds are 4 (to 1); return 4
-             * if percent >=16 then odds are 5 (to 1); return 5
-             */
-            int OddsToWin = 20;
-            if (percentageOfVictories>=50)
-            {                
-                OddsToWin = 1;                
-            }else if (percentageOfVictories >= 33)
-            {
-                OddsToWin = 2;
-            }else if (percentageOfVictories >= 25)
-            {
-                OddsToWin = 3;
-            }else if (percentageOfVictories >= 20)
-            {
-                OddsToWin = 4;
-            }else if (percentageOfVictories >= 16)
-            {
-                OddsToWin = 5;
-            }else if (percentageOfVictories >= 14)
-            {
-                OddsToWin = 6;
-            }
-            else if (percentageOfVictories >= 12)
-            {
-                OddsToWin = 7;
-            }
-            else if (percentageOfVictories >= 11)
-            {
-                OddsToWin = 8;
-            }
-            else if (percentageOfVictories >= 10)
-            {
-                OddsToWin = 9;
-            }
-            return OddsToWin;
-        }
+        
 
         double ThisLegTime(Boat boat, RaceCourse boatRaceCourse, double currentBoatSpeed, int courseLegType)
         {
@@ -448,17 +407,26 @@ namespace BoatRace
             return currentBoatSpeed;
         }
 
-        private static List<string> CalculateBoatPositionsAfterEachLeg(List<double> legTimes, List<Boat> boats, int numOfBoats)
+        private static List<Boat> CalculateBoatPositionsAfterEachLeg(List<double> legTimes, List<Boat> boats, int numOfBoats)
         {
             List<string> list = new List<string>();
-            string[] array = new string[numOfBoats];
+            Boat[] array = new Boat[numOfBoats];
             legTimes.Sort();
             foreach (Boat boat in boats)
             {
                 int boatTimeInList = legTimes.IndexOf(boat.BoatTimeForDistance);
-                array[boatTimeInList] = boat.Name;
+                array[boatTimeInList] = boat;
             }
             return array.ToList();
+        }
+        public List<string> CreateNamesOfBoatsInRaceList(List<Boat> listOfBoats)
+        {
+            foreach(Boat boat in listOfBoats)
+            {
+                NamesOfBoatsInRace.Add(boat.Name);
+            }
+            return NamesOfBoatsInRace;
+            
         }
     }
 }

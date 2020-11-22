@@ -85,7 +85,7 @@ namespace BoatRace
             //build dictionary for holding race simulation results
             foreach (Boat boat in boatsForRace)
             {
-                boatRaceCourse.RaceSimResults.Add(boat.Name, 0);
+                boatRaceCourse.RaceSimResults.Add(boat, 0);
             }
 
             //******************** race simulator ************************************//
@@ -101,8 +101,8 @@ namespace BoatRace
 
             }
             string simRacePrompt = "\nBased on the results of the simulation, which boat do you think will win the race?";
-            int boatToWin = makeSelection.SelectionMenu(boatRaceCourse.RaceSimResults.Keys.ToList(), simRacePrompt);
-
+            int boatToWin = makeSelection.SelectionMenu(boatRaceCourse.CreateNamesOfBoatsInRaceList(boatsForRace), simRacePrompt);
+            
             //handle response from user
             Console.WriteLine("Ok, " + boatsForRace[boatToWin - 1].Name + " it is.  Let's see if you're right.");
 
@@ -130,16 +130,27 @@ namespace BoatRace
             
         }
 
-        private static void CheckWinnings(List<Boat> boatsForRace, RaceCourse boatRaceCourse, int boatToWin, Gambler player)
+        public static void CheckWinnings(List<Boat> boatsForRace, RaceCourse boatRaceCourse, int boatToWin, Gambler player)
         {
             Console.WriteLine("\nYou have elected to wager on the boats.");
-            player.Payout = player.Wager * boatRaceCourse.OddsToWin;
-            player.Winnings += player.Payout;
-            Console.WriteLine($"\nCongratulations! You picked the winner!\n" +
-                                "Your wager of {player.Wager} has won you " +
-                                "{player.Payout}!\nYou now have {player.Winnings}" +
-                                " to wager in the next race.");
             
+            if (boatRaceCourse.RaceWinner == boatsForRace[boatToWin - 1].Name)
+            {
+                player.Payout = (player.Wager * boatsForRace[boatToWin - 1].OddsToWin) - player.Wager;
+                player.Winnings += player.Payout;
+                Console.WriteLine($"\nCongratulations! {boatsForRace[boatToWin - 1].Name} won the race!\n" +
+                                $"Your wager of {player.Wager} has won you " +
+                                $"{player.Payout}!\nYou now have {player.Winnings}" +
+                                " to wager in the next race.");
+            }
+            else
+            {
+                player.Winnings -= player.Wager;
+                Console.WriteLine($"\nSorry, the boat you chose, {boatsForRace[boatToWin - 1].Name}, lost.\n" +
+                                    $"You lost your wager of {player.Wager}.\nYou now have" +
+                                    $" {player.Winnings} to wager in the next race");
+
+            }
         }
         private static void CheckRaceResultsForFun(List<Boat> boatsForRace, RaceCourse boatRaceCourse, int boatToWin, Gambler player)
         {
@@ -155,7 +166,7 @@ namespace BoatRace
                     if (player.GambleOnBoats == "y")
                     {
                         player.Winnings = 500;
-                        Console.WriteLine($"You have $ {player.Winnings} to wager on the next race.");
+                        Console.WriteLine($"You have ${player.Winnings} to wager on the next race.");
                     }
                     Gambler.StarterWins = 0;
                 };
@@ -274,6 +285,7 @@ namespace BoatRace
                 while (boatNameIndexes.Contains(nameIndex));
 
                 boatsForRace[i].Name = boatsForRace[i].boatNames[nameIndex];
+                
                 boatNameIndexes.Add(nameIndex);
 
             }

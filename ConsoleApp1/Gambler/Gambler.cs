@@ -9,7 +9,7 @@ namespace BoatRace
     {
         public int Picks { get; set; }
         public int Wager { get; set; }
-        public int Winnings { get; set; }
+        public int Winnings { get; set; } = 500;
         public int Payout { get; set; }
         public static int StarterWins {get;set;}
         public string GambleOnBoats { get; set; } = "y";

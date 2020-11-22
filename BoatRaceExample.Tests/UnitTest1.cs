@@ -136,5 +136,17 @@ namespace BoatRaceExample.Tests
             RaceCourse rc = new RaceCourse();
             Assert.AreEqual(4, rc.OddsMakingForBoat(22));
         }
+        [TestMethod]
+        public void CheckWinningsTest()
+        {
+            RaceCourse rc = new RaceCourse();
+            List<Boat> rBoats = BoatRace.Program.CreateTheBoats("SpeedBoat", 4);
+            Gambler player = new Gambler();
+            player.Winnings = 500;
+            player.Wager = 500;
+            rc.OddsToWin = 2;
+            BoatRace.Program.CheckWinnings(rBoats,rc,3,player);
+            Assert.IsTrue(player.Winnings == 1000);
+        }
     }
 }

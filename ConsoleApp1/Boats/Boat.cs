@@ -23,6 +23,7 @@ namespace BoatRace
          *if horsepower over 30, speed increase .01 per point (10% max)
          */
         public int BoatPosition { get; set; }
+        public int OddsToWin { get; set; }
 
         /******doubles******/
         public virtual double AverageSpeedInKnots { get; set; }
@@ -149,7 +150,54 @@ namespace BoatRace
             //by modifying the percentage in the next line, the outcome of race can vary.
             return speed * ((num.NextDouble() * (.33 * posOrNeg)));
         }
-        
+        public int OddsMakingForBoat(double percentageOfVictories)
+        {
+            /*
+             * if percent >= 50 then odds are 1:1; return 1
+             * if percent >= 33 then odds are 2:1; return 2
+             * if precent >=25 then odds are 3; etc.
+             * if percent >=20 then odds are 4 (to 1); return 4
+             * if percent >=16 then odds are 5 (to 1); return 5
+             */
+            int OddsToWin = 20;
+            if (percentageOfVictories >= 50)
+            {
+                OddsToWin = 1;
+            }
+            else if (percentageOfVictories >= 33)
+            {
+                OddsToWin = 2;
+            }
+            else if (percentageOfVictories >= 25)
+            {
+                OddsToWin = 3;
+            }
+            else if (percentageOfVictories >= 20)
+            {
+                OddsToWin = 4;
+            }
+            else if (percentageOfVictories >= 16)
+            {
+                OddsToWin = 5;
+            }
+            else if (percentageOfVictories >= 14)
+            {
+                OddsToWin = 6;
+            }
+            else if (percentageOfVictories >= 12)
+            {
+                OddsToWin = 7;
+            }
+            else if (percentageOfVictories >= 11)
+            {
+                OddsToWin = 8;
+            }
+            else if (percentageOfVictories >= 10)
+            {
+                OddsToWin = 9;
+            }
+            return OddsToWin;
+        }
     }
     
 }
