@@ -8,23 +8,23 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\ericm\\.nuget\\packages\\": {},
+    "C:\\Users\\Eric\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj",
+      "projectUniqueName": "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj",
       "projectName": "BoatRace",
-      "projectPath": "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj",
-      "packagesPath": "C:\\Users\\ericm\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ericm\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\obj\\",
+      "projectPath": "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj",
+      "packagesPath": "C:\\Users\\Eric\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\ericm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Eric\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -65,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

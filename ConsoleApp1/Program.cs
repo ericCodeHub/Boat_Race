@@ -32,14 +32,15 @@ namespace BoatRace
             Console.WriteLine();
             string openingPrompt = "\nChoose boats to race:";
             string boatChoice = boatChoices[makeSelection.SelectionMenu(boatChoices, openingPrompt) - 1];
-            //determines boat selected by calling menu_cli
+            /*determines boat selected by calling menu_cli
             //sends boatchoices to the menu and returns the index for the boat selected
             //string is completed here to set which type of boat is being raced
-            //actual boats are created below                                                                    
+            //actual boats are created below*/                                                                    
 
             //Create a list to hold boats and their properties
-            //Build the Boat--right now, builds four boats to race but could be changed to 
-            //collect a user input to vary the number of boats to race
+            /*Build the Boat--right now, builds four boats to race but could be changed to 
+            collect a user input to vary the number of boats to race*/
+
             List<Boat> boatsForRace = CreateTheBoats(boatChoice, boatChoices.Count);
 
             //name the boats
@@ -234,7 +235,7 @@ namespace BoatRace
                         * Name could be key.
                     */
                     //next line is probably not necessary
-                    boat.RacingBoats.Add(boat);//do I need this?
+                    //boat.RacingBoats.Add(boat);//do I need this?
                 }
                 else if (boatSelection == "Trawler")
                 {
@@ -242,7 +243,7 @@ namespace BoatRace
                     Trawler boat = new Trawler(1, "diesel", 38, false);
                     list.Add(boat);//this the Boat Type list
 
-                    boat.racingBoats.Add(boat);//do I need this?
+                    //boat.racingBoats.Add(boat);//do I need this?
 
                 }
                 else if (boatSelection == "PontoonBoat")
@@ -251,7 +252,7 @@ namespace BoatRace
                     PontoonBoat boat = new PontoonBoat(2, "gas", 30, true);
                     list.Add(boat);//this the Boat Type list
 
-                    boat.racingBoats.Add(boat);//do I need this?
+                    //boat.racingBoats.Add(boat);//do I need this?
 
                 }
                 else if (boatSelection == "SpeedBoat")
@@ -260,7 +261,7 @@ namespace BoatRace
                     SpeedBoat boat = new SpeedBoat(1, "gas", 35, true);
                     list.Add(boat);//this the Boat Type list
 
-                    boat.racingBoats.Add(boat);//do I need this?
+                    //boat.racingBoats.Add(boat);//do I need this?
 
                 }
                 else

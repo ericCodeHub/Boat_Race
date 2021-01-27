@@ -134,6 +134,7 @@ namespace BoatRaceExample.Tests
         public void OddsMakingTest()
         {
             RaceCourse rc = new RaceCourse();
+            //OddsMakingForBoat now in Boat Class after testing
             Assert.AreEqual(4, rc.OddsMakingForBoat(22));
         }
         [TestMethod]
@@ -144,6 +145,7 @@ namespace BoatRaceExample.Tests
             Gambler player = new Gambler();
             player.Winnings = 500;
             player.Wager = 500;
+            //OddsToWin moved to Boat Class after testing
             rc.OddsToWin = 2;
             BoatRace.Program.CheckWinnings(rBoats,rc,3,player);
             Assert.IsTrue(player.Winnings == 1000);
