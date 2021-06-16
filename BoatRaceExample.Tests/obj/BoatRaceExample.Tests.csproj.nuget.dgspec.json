@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj": {}
+    "C:\\GitHub_C\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj": {
+    "C:\\GitHub_C\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj",
+        "projectUniqueName": "C:\\GitHub_C\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj",
         "projectName": "BoatRaceExample.Tests",
-        "projectPath": "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj",
+        "projectPath": "C:\\GitHub_C\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj",
         "packagesPath": "C:\\Users\\Eric\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\BoatRaceExample.Tests\\obj\\",
+        "outputPath": "C:\\GitHub_C\\Boat_Race\\BoatRaceExample.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -32,8 +32,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj": {
-                "projectPath": "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj"
+              "C:\\GitHub_C\\Boat_Race\\ConsoleApp1\\BoatRace.csproj": {
+                "projectPath": "C:\\GitHub_C\\Boat_Race\\ConsoleApp1\\BoatRace.csproj"
               }
             }
           }
@@ -84,14 +84,14 @@
         }
       }
     },
-    "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj": {
+    "C:\\GitHub_C\\Boat_Race\\ConsoleApp1\\BoatRace.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj",
+        "projectUniqueName": "C:\\GitHub_C\\Boat_Race\\ConsoleApp1\\BoatRace.csproj",
         "projectName": "BoatRace",
-        "projectPath": "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\BoatRace.csproj",
+        "projectPath": "C:\\GitHub_C\\Boat_Race\\ConsoleApp1\\BoatRace.csproj",
         "packagesPath": "C:\\Users\\Eric\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\ConsoleApp1\\obj\\",
+        "outputPath": "C:\\GitHub_C\\Boat_Race\\ConsoleApp1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

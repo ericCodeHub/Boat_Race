@@ -289,3 +289,9 @@ C:\Users\Student\workspace\Boat_Race\BoatRaceExample.Tests\obj\Debug\netcoreapp3
 C:\Users\Student\workspace\Boat_Race\BoatRaceExample.Tests\obj\Debug\netcoreapp3.1\BoatRaceExample.Tests.dll
 C:\Users\Student\workspace\Boat_Race\BoatRaceExample.Tests\obj\Debug\netcoreapp3.1\BoatRaceExample.Tests.pdb
 C:\Users\Student\workspace\Boat_Race\BoatRaceExample.Tests\obj\Debug\netcoreapp3.1\BoatRaceExample.Tests.genruntimeconfig.cache
+C:\GitHub_C\Boat_Race\BoatRaceExample.Tests\obj\Debug\netcoreapp3.1\BoatRaceExample.Tests.csprojAssemblyReference.cache
+C:\GitHub_C\Boat_Race\BoatRaceExample.Tests\obj\Debug\netcoreapp3.1\BoatRaceExample.Tests.AssemblyInfoInputs.cache
+C:\GitHub_C\Boat_Race\BoatRaceExample.Tests\obj\Debug\netcoreapp3.1\BoatRaceExample.Tests.AssemblyInfo.cs
+C:\GitHub_C\Boat_Race\BoatRaceExample.Tests\obj\Debug\netcoreapp3.1\BoatRaceExample.Tests.csproj.CoreCompileInputs.cache
+C:\GitHub_C\Boat_Race\BoatRaceExample.Tests\obj\Debug\netcoreapp3.1\BoatRaceExample.Tests.dll
+C:\GitHub_C\Boat_Race\BoatRaceExample.Tests\obj\Debug\netcoreapp3.1\BoatRaceExample.Tests.pdb

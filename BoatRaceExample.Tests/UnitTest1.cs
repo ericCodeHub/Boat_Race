@@ -141,12 +141,13 @@ namespace BoatRaceExample.Tests
         public void CheckWinningsTest()
         {
             RaceCourse rc = new RaceCourse();
+            Boat sb = new SailBoat(1, "sloop", "diesel", 30, true);
             List<Boat> rBoats = BoatRace.Program.CreateTheBoats("SpeedBoat", 4);
             Gambler player = new Gambler();
             player.Winnings = 500;
             player.Wager = 500;
             //OddsToWin moved to Boat Class after testing
-            rc.OddsToWin = 2;
+            sb.OddsToWin = 2;
             BoatRace.Program.CheckWinnings(rBoats,rc,3,player);
             Assert.IsTrue(player.Winnings == 1000);
         }

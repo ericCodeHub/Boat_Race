@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+pkdO8KEjGFY9LRvnoAZ/3H7+VWFcoxLBzlVqBTc7Wg/I3+br4bBLR4IOzOUBr4EyzSADKSpWfG3RZTZm7nt/A==",
+  "dgSpecHash": "TYllgJ4rugx5Pv0oNChIE1yf0trV9ZEOfifElSIrjcAVyAmL2wSrpwi4PT6SpgjIuwqugptq65cKFv8wA+jUVA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Eric\\OneDrive\\Documents\\GitHub\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj",
+  "projectFilePath": "C:\\GitHub_C\\Boat_Race\\BoatRaceExample.Tests\\BoatRaceExample.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Eric\\.nuget\\packages\\coverlet.collector\\1.2.0\\coverlet.collector.1.2.0.nupkg.sha512",
     "C:\\Users\\Eric\\.nuget\\packages\\microsoft.codecoverage\\16.5.0\\microsoft.codecoverage.16.5.0.nupkg.sha512",
